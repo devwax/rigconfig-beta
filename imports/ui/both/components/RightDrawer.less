@@ -1,0 +1,26 @@
+#RightDrawer {
+  display: none;
+  position: fixed;
+  width: 250px;
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 35px;
+  bottom: 0;
+  right: 0;
+  padding: 18px 0 0 0;
+  background: white;
+  z-index: @layer-nav - 10;
+  // box-shadow: 4px 20px 20px 5px rgba(0, 0, 0, 0.035);
+  box-shadow: 5px 9px 82px 5px rgba(0, 0, 0, 0.08);
+  opacity: 1;
+  border-left: 1px solid lighten(lightgray, 8%);
+
+  &.RightDrawerOpen {
+    display: block;
+  }
+
+  .RightDrawer-container {
+    padding: 10px 8px 8px 8px;
+  }
+}

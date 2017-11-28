@@ -1,0 +1,108 @@
+#RigSelector {
+  padding: 5px 9px;
+  line-height: 0.828571;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  color: #333;
+  background-color: #ffffff;
+  cursor: pointer;
+
+  &.rigSelectorOpen {
+    border-bottom: none;
+    border-bottom: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .selector-window {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 88%;
+    line-height: @line-height-base;
+    background-color: inherit;
+    font-size: inherit;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+    i.fa {
+      color: lighten(@text-color, 30%);
+      padding-right: 2px;
+    }
+  }
+
+  i.fa-sort {
+    float: right;
+    color: gray;
+    line-height: @line-height-base;
+    border-left: 1px solid #D5D5D5;
+    padding-left: 9px;
+  }
+}
+
+#RigSelector-dropdown {
+  font-size: 12px;
+  margin-top: 0;
+  margin-bottom: 10px;
+
+  i.fa {
+    color: lighten(@text-color, 30%);
+    padding-right: 2px;
+  }
+
+  button.list-group-item {
+    padding: 9px 9px;
+    border-top: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom: 2px solid lightgray;
+    &.highlight {
+      background: #f5f5f5;
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+    &:hover {
+      background: white;
+    }
+    &:first-child {
+      border-top: 1px solid lightgray;
+    }
+    h4 {
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+    .list-group-item-text {
+      display: none;
+    }
+    .list-group-item-heading {
+      font-size: 13px;
+      font-weight: bold;
+      color: lighten(@text-color, 20%);
+    }
+    &.hasDesc > .list-group-item-text {
+      display: block;
+      padding-top: 5px;
+    }
+  }
+}
+
+#components-list {
+  margin-top: 10px;
+  h4 {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: gray;
+
+    &.section-title {
+      border-top: 2px solid #F0F0F0;
+      padding-top: 10px;
+    }
+  }
+  #NoComponentsMessage {
+    padding: 10px;
+    border: 1px dashed lightgray;
+    margin-bottom: 20px;
+  }
+}

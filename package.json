@@ -1,0 +1,36 @@
+{
+  "name": "rigconfig",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.18.0",
+    "bricks.js": "^1.7.0",
+    "classnames": "^2.2.5",
+    "lodash.orderby": "^4.6.0",
+    "lodash.valuesin": "^4.3.0",
+    "marked": "^0.3.6",
+    "meteor-node-stubs": "~0.3.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-addons-pure-render-mixin": "^15.3.2",
+    "react-bootstrap": "^0.31.5",
+    "react-custom-scrollbars": "^4.0.1",
+    "react-dom": "^16.1.1",
+    "react-helmet": "^5.2.0",
+    "react-instantsearch-meteor": "^4.2.1",
+    "react-instantsearch-theme-algolia": "^4.2.0",
+    "react-masonry-infinite": "^1.1.0",
+    "react-mixin": "^4.0.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-throttle": "^0.3.0",
+    "readdir-recursive": "0.0.4",
+    "simpl-schema": "^0.2.2",
+    "url-pattern": "^1.0.3"
+  },
+  "unused": {
+    "react-masonry-layout": "^0.2.3"
+  }
+}

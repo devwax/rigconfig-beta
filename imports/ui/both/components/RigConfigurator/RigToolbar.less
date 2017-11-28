@@ -1,0 +1,97 @@
+@open-color: #f5f5f5;
+@open-color-border: lightgray;
+
+#RigToolbar {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  button {
+    &.open {
+      border: 1px solid @open-color-border;
+      background-color: @open-color;
+    }
+    padding: 2px 10px;
+    font-size: 16px;
+    width: 90% / 5;
+    margin-left: 2%;
+    &:last-of-type {
+      float: right;
+    }
+    &:focus, &:active, &:hover {
+      outline: none;
+      color: inherit;
+      background-color: @open-color;
+      border-color: @btn-default-border;
+    }
+  }
+}
+
+#RigToolbarTools {
+  &.open {
+    padding: 6px;
+    border: 1px solid @open-color-border;
+    background-color: @open-color;
+  }
+  .tool-wrapper.shareRig {
+    .button-make-private {
+      color: white;
+      background-color: #4ea952;
+    }
+    .button-update {
+      font-size: 13px;
+      margin-left: 9px;
+    }
+    .link-icon {
+      float: right;
+      padding-top: 5px;
+      padding-right: 8px;
+      color: #333333;
+    }
+    .toggle-msg {
+      font-size: 10px;
+      padding-left: 12px;
+    }
+    .link-label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 3px;
+      margin-top: 20px;
+    }
+  }
+  .tool-wrapper.forkRig {
+    text-align: center;
+  }
+  .tool-wrapper.deleteRig {
+    text-align: right;
+  }
+  .deleteRigCancel {
+    margin-right: 10px;
+  }
+  .form-group {
+    label.control-label {
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    input[type="text"] {
+      padding: 4px 5px;
+      &:focus {
+        border: inherit;
+      }
+    }
+  }
+  textarea#editRigDesc {
+    padding: 7px;
+    height: 170px;
+  }
+  .anonymous-private-key {
+    margin-top: 6px;
+    padding: 11px;
+    border: 1px solid #E0DCBF;
+    background-color: #FFF8DC;
+    h4 {
+      margin: 5px 0 10px 0;
+      font-size: 13px;
+      color: gray;
+      font-weight: bold;
+    }
+  }
+}

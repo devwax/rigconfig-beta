@@ -1,0 +1,22 @@
+/*
+  This is an example template file. Copy this file and place it outside
+  of the main repo directory and reference it when starting meteor:
+
+    e.g.
+    meteor run --settings ~/Dropbox/.deploy/rigconfig-settings-dev.json
+
+  Update the Algolia api credentials below to use search and faceting.
+
+  See:
+    Algolia search and faceting is mandatory and has no fallback
+    https://gitlab.com/rigconfig/rigconfig/issues/22
+
+  Note: Remove this comment in live settings file to avoid errors.
+*/
+
+{
+  "public": {
+    "algoliaAppId": "",
+    "algoliaSearchApiKey": ""
+  }
+}

@@ -1,0 +1,137 @@
+// <Menu />
+// .ais-Menu__items {
+//   margin: 1rem 0 3rem 0;
+//   .ais-Menu__item {
+//     margin: 0;
+//     padding: 0.6rem 0;
+//     font-size: 83%;
+//     width: 100%;
+//     border-bottom: 1px solid lightgray;
+//   }
+//
+//   .ais-Menu__itemLink {
+//     color: #555;
+//   }
+// }
+
+// <SearchBox />
+#Navbar-content {
+  .ais-SearchBox__root {
+    height: 30px !important;
+    max-width: none;
+  }
+
+  .ais-SearchBox__wrapper {
+    margin-top: 2px;
+    width: 50rem;
+  }
+
+  .ais-SearchBox__input {
+    height: 2.5rem;
+    padding: 0 32px 0 10px;
+    border-radius: 0;
+    // &:focus {
+    //   border: 1px solid @brand-primary;
+    // }
+  }
+
+  .ais-SearchBox__submit {
+    display: none;
+  }
+
+  .ais-SearchBox__reset {
+    top: 4px;
+    left: 476px;
+  }
+}
+
+#LeftDrawer {
+  .ais-RefinementList__item {
+    color: #555;
+    border-bottom: 1px solid #f1f1f1;
+    label {
+      width: 100%;
+    }
+  }
+
+  .ais-RefinementList__item:last-child {
+    border-bottom: none;
+  }
+
+  .ais-RefinementList__item input[type="checkbox"]:checked ~ .ais-RefinementList__itemBox {
+    background-color: @brand-primary;
+    border-color: @brand-primary;
+  }
+
+  .ais-RefinementList__itemLabel {
+    font-weight: normal;
+    color: #555;
+    font-size: 90%;
+  }
+
+  .ais-RefinementList__itemLabelSelected {
+    font-weight: bold;
+    color: #555;
+  }
+
+  .ais-RefinementList__itemCount {
+    // background-color: lighten(lightgray, 13%);
+    float: right;
+    padding-right: 0;
+    background-color: white;
+    color: #8e8e8e;
+  }
+
+  .ais-Panel__noRefinement {
+    display: none;
+  }
+
+  // <MenuSelect />
+  .ais-MenuSelect__select {
+    margin: 1rem 0;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  // <Panel />
+  .ais-Panel__root {
+    margin: 0.3rem 0 0 0;
+  }
+
+  .ais-Panel__title {
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    width: 117%;
+    margin-left: -19px;
+    padding: 10px 6px 7px 18px;
+    // border-top-left-radius: 8px;
+    // border-bottom-left-radius: 8px;
+    border: 1px solid #e4e4e4;
+    border-right: none;
+  }
+
+  // <ClearAll />
+  .ais-ClearAll__root {
+    display: inline-block;
+    width: 100%;
+    margin: 0.7rem 0 1.3rem 0;
+    color: white;
+    padding: 7px 14px;
+    background-color: @brand-primary;
+    border: 1px solid @brand-primary;
+    // visibility: hidden;
+    span.clear-all-container {
+      font-size: 1.3rem;
+      margin-left: -10px;
+    }
+  }
+
+  .ais-ClearAll__root:disabled[disabled], .ais-ClearAll__root:disabled:disabled {
+      color: #555;
+      background-color: white;
+      border: 1px solid lightgray;
+      display: none;
+  }
+
+}

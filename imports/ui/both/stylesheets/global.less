@@ -1,0 +1,120 @@
+////////////////////////////////////////////////
+// Add any custom css styles below
+
+// Layers
+@layer-top:     10000;
+@layer-modal:   5000;
+@layer-nav:     4000;
+@layer-drawers: 3000;
+
+// Drawers
+// @nav-clearance-top: 100px; // w/ subnavbar
+@nav-clearance-top: 51px;
+@drawer-width: 230px;
+
+
+// Other variables
+@opacity-hover: 0.95;
+
+body {
+  // padding: @nav-clearance-top 24px 0 24px;
+  padding: @nav-clearance-top 0 0 0;
+  background-color: #f5f5f5;
+}
+
+a {
+  &:focus {
+    outline: none;
+  }
+}
+
+.brand-primary {
+  color: @brand-primary;
+}
+
+:focus {
+  outline: none;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+  outline: 2px auto white;
+}
+
+.btn-default:focus, .btn-default.focus {
+  background-color: #ffffff;
+  // border-color: #ffffff;
+}
+
+.btn:active, .btn.active {
+  box-shadow: none;
+}
+
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+  background-color: #ffffff;
+}
+
+.btn-default:hover {
+  background-color: #ffffff;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+  outline: none;
+}
+
+.btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
+  background-color: #ffffff;
+}
+
+.form-control:focus {
+  border-color: #cccccc;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+div#tooltip {
+  z-index: @layer-top;
+}
+
+.page-title-small {
+  font-size: 19px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  // text-align: center;
+  color: gray;
+}
+// .img-zoomable {
+//   cursor: zoom-in;
+//   margin: 25px;
+//
+//   span.image-caption {
+//    display: block;
+//    font-size: 13px;
+//    padding: 20px 10px;
+//    font-style: italic;
+//    color: gray;
+//  }
+//
+//   &.right-top {
+//     float: right;
+//     margin: 0 0 25px 25px;
+//   }
+//   img {
+//     width: 350px;
+//     box-shadow: 1px 1px 10px 0px rgba(100, 100, 100, 0.45);
+//   }
+// }
+//
+// body.zoom-overlay-open .img-zoomable img {
+//   box-shadow: 0 0 80px 15px rgba(0,0,0, 0.15);
+// }
+//
+// .zoom-overlay-open .zoom-overlay {
+//   opacity: 0.9;
+// }
+//
+// .algolia-autocomplete {
+//   width: 100%;
+// }
