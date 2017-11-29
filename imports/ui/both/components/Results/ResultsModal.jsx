@@ -10,11 +10,13 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import AppState from '/imports/startup/both/AppState.js';
 
-function ResultsModal({isSearching, handleClearSearchState, searchState, searchResults, LeftDrawerOpen}) {
+function ResultsModal({isSearching, handleClearSearchState, searchState, searchResults, searchUrl, LeftDrawerOpen}) {
   const hasResults = true; // @todo - turn this into real variable
   if (!isSearching) return null;
 
   // console.log('searchState', searchState);
+  // console.log('window.location', window.location);
+  console.log('isSearching', isSearching);
 
   return (
     <div id="ResultsModal">
@@ -34,6 +36,9 @@ function ResultsModal({isSearching, handleClearSearchState, searchState, searchR
             <div>
               <Pagination showLast={true} />
             </div>
+            <div>
+              Permalink: <input type="text" value={searchUrl} readOnly />
+            </div>
           </div>
         </div>
         :
@@ -51,8 +56,10 @@ const NoResults = ({query}) => {
   )
 }
 
-export default connectStateResults(withTracker(({isSearching, handleClearSearchState, searchState, searchResults}) => {
+export default connectStateResults(withTracker(({isSearching, handleClearSearchState, searchState, searchResults, searchStateToUrl}) => {
+  // console.log('url', searchStateToUrl({location: window.location}, searchState));
   return {
-    LeftDrawerOpen: AppState.get('LeftDrawerOpen')
+    LeftDrawerOpen: AppState.get('LeftDrawerOpen'),
+    searchUrl: searchStateToUrl({location: window.location}, searchState)
   }
 })(ResultsModal))

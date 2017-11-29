@@ -51,36 +51,61 @@ class App extends React.Component {
     this.handleClearSearchState = this.handleClearSearchState.bind(this);
     this.onSearchStateChange = this.onSearchStateChange.bind(this);
     this.normalizeState = this.normalizeState.bind(this);
-    // this.clearSearchState = this.clearSearchState.bind(this);
     this.isSearching = false;
     this.updateAfter = 700;
     this.createURL = state => `?${qs.stringify(state)}`;
     this.searchStateToUrl = (props, searchState) => this.normalizeState(searchState) ? `${props.location.pathname}${this.createURL(searchState)}` : '';
     this.urlToSearchState = location => qs.parse(location.search.slice(1));
     this.state = { searchState: this.urlToSearchState(props.location) };
-    props.location.search.slice(1) && this.normalizeState(this.state.searchState)
-    // console.log('Initial Search State:', this.urlToSearchState(props.location));
+  }
+
+  // This works, but why doesn't it work in constructor? ... isSearching not set?
+  componentWillMount() {
+    this.normalizeState(this.urlToSearchState(this.props.location));
+    this.setState({
+      searchState: this.urlToSearchState(this.props.location),
+      isSearching: this.isSearching
+    });
+
   }
 
   componentWillReceiveProps(props) {
-    // console.log('props.location', this.props.location);
+    console.log('props, props.location', props, props.location);
     if (props.location.key !== this.props.location.key) {
-      this.setState({ searchState: this.urlToSearchState(props.location) });
       this.normalizeState(this.urlToSearchState(props.location));
+      this.setState({
+        searchState: this.urlToSearchState(props.location),
+        isSearching: this.isSearching
+      });
+
+      // console.log('this.isSearching ( componentWillReceiveProps() )', this.isSearching);
     }
+    // this.getSearchUrl();
   }
 
   onSearchStateChange(searchState) {
+    // this.getSearchUrl();
     this.normalizeState(searchState);
+
+    // Uncomment this to get search facet url updating in browser location bar
 
     clearTimeout(this.debouncedSetState);
     this.debouncedSetState = setTimeout(() => {
-      this.props.history.push(
+      this.props.history.replace(
         this.searchStateToUrl(this.props, searchState),
         searchState
       );
     }, this.updateAfter);
-    this.setState({ searchState });
+    // console.log('searchState:', searchState);
+    console.log('this.isSearching ( onSearchStateChange() )', this.isSearching);
+
+    // add a "hasQuery? function like normalizeState and flip to true if one exists?"
+    this.setState({ searchState, isSearching: this.isSearching });
+
+
+    // this.setState({isSearching: isSearching})
+    // window && (window.location.href = this.searchStateToUrl(this.props, searchState));
+
   }
 
   handleClearSearchState() {
@@ -100,6 +125,7 @@ class App extends React.Component {
       isSearching = false;
       valuesIn(state.refinementList).map(i => i && i.map(v => v && (isSearching = true)));
       !isSearching && delete state.refinementList;
+      // if (isSearching) { this.setState({isSearching: true}); return state; }
       if (isSearching) { this.isSearching = true; return state; }
     }
 
@@ -108,6 +134,7 @@ class App extends React.Component {
       isSearching = false;
       valuesIn(state.menu).map(i => i && (isSearching = true));
       !isSearching && delete state.menu;
+      // if (isSearching) { this.setState({isSearching: true}); return state; }
       if (isSearching) { this.isSearching = true; return state; }
     }
 
@@ -116,6 +143,7 @@ class App extends React.Component {
       isSearching = false;
       state.query && (isSearching = true);
       !isSearching && delete state.query;
+      // if (isSearching) { this.setState({isSearching: true}); return state; }
       if (isSearching) { this.isSearching = true; return state; }
     }
 
@@ -124,8 +152,14 @@ class App extends React.Component {
       delete state.page;
     }
 
-    this.isSearching = isSearching;
+    // console.log('this.isSearching / isSearching', this.isSearching, isSearching);
 
+    if (this.isSearching === false && isSearching === true) {
+      console.log('Transitioning to search/filter mode!');
+    }
+
+    this.isSearching = isSearching;
+    console.log('isSearching (App)', isSearching);
     return state;
   }
 
@@ -134,6 +168,9 @@ class App extends React.Component {
   // }
 
   render() {
+    // console.log('this.props', this.props);
+    // console.log('this.getSearchUrl()', this.getSearchUrl());
+    // console.log('this.SearchUrl', this.SearchUrl);
     const { defaultTitle, pageTitle, canonicalURL, initialRender, UserSettingsModalOpen, drawerStates } = this.props;
     return (
       <InstantSearch
@@ -185,11 +222,15 @@ class App extends React.Component {
 
         <Navbar />
 
-        <LeftDrawer { ...{initialRender, drawerStates } } />
+        <LeftDrawer { ...{initialRender, drawerStates } } handleClearSearchState={this.handleClearSearchState} isSearching={this.state.isSearching} />
 
         <RightDrawer { ...{initialRender, drawerStates } } />
 
-        <ResultsModal isSearching={this.isSearching} handleClearSearchState={this.handleClearSearchState} />
+        <ResultsModal
+          isSearching={this.state.isSearching}
+          handleClearSearchState={this.handleClearSearchState}
+          searchStateToUrl={this.searchStateToUrl}
+        />
 
         <Helmet
           script={[
@@ -264,7 +305,7 @@ class App extends React.Component {
 
 App.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
+    // push: PropTypes.func.isRequired,
   }),
   location: PropTypes.object.isRequired,
 };

@@ -22,7 +22,7 @@ import { formatTitle } from '/imports/api/lib/formatTitle.js';
 //   return null;
 // });
 
-function LeftDrawer({drawerStates}) {
+function LeftDrawer({drawerStates, handleClearSearchState, isSearching}) {
   return (
     <div id="LeftDrawer" className={drawerStates}>
       {/* <QueryStateDemo /> */}
@@ -50,10 +50,18 @@ function LeftDrawer({drawerStates}) {
             translations={{seeAllOption: "Components"}}
           />
 
-          <ClearAll
+          {/* <ClearAll
             translations={{reset: (<span className="clear-all-container"><i className="fa fa-times"></i> <span>Clear All</span></span>)}}
             clearsQuery
-          />
+          /> */}
+
+          { isSearching &&
+            <button className="ais-ClearAll__root" onClick={(e) => { e.preventDefault(); handleClearSearchState(); }}>
+              <span className="clear-all-container">
+                <i className="fa fa-times"></i>{' '}<span>Clear All</span>
+              </span>
+            </button>
+          }
 
           <Panel title="MFTR">
             <RefinementList
@@ -79,6 +87,6 @@ function LeftDrawer({drawerStates}) {
   )
 }
 
-export default withTracker(({drawerStates}) => {
+export default withTracker(({drawerStates, handleClearSearchState, isSearching}) => {
   return {}
 })(LeftDrawer)
