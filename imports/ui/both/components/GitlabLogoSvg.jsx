@@ -7,7 +7,8 @@ export default function GitlabLogoSvg() {
   return (
     <div className="GitlabLogoSvg">
       <a title="Contribute via GitLab" alt="Contribute via GitLab" href="https://gitlab.com/rigconfig/rigconfig" target="_gitlab">
-        <svg width="36" height="36" className="tanuki-logo">
+        {/* <svg width="36" height="36" className="tanuki-logo"> */}
+        <svg viewBox="0 0 40 40" className="tanuki-logo">
           <path className="tanuki-shape tanuki-left-ear" fill="#e24329" d="M2 14l9.38 9v-9l-4-12.28c-.205-.632-1.176-.632-1.38 0z"></path>
           <path className="tanuki-shape tanuki-right-ear" fill="#e24329" d="M34 14l-9.38 9v-9l4-12.28c.205-.632 1.176-.632 1.38 0z"></path>
           <path className="tanuki-shape tanuki-nose" fill="#e24329" d="M18,34.38 3,14 33,14 Z"></path>

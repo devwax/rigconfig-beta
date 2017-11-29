@@ -110,10 +110,11 @@
         #UserSettings-toggle {
           position: relative;
           color: lighten(black, 60%);
-          font-size: 33px;
+          font-size: 29px;
           float: right;
           display: inline;
           margin-left: 27px;
+          margin-top: 1px;
           &:hover, &:active, &.active {
             color: lighten(black, 30%);
             cursor: pointer;
@@ -247,9 +248,16 @@
 }
 
 .GitlabLogoSvg {
-  display: inline;
+  // display: inline;
+  display: inline-block;
+  margin-top: 2px;
   opacity: 0.7;
   transition: opacity .10s ease-in;
+
+  svg {
+    height: 33px;
+    width: 33px;
+  }
 
   path {
     &.tanuki-left-ear {
