@@ -1,5 +1,6 @@
 import React from 'react';
 import { connectStateResults } from 'react-instantsearch-meteor/connectors';
+import { connectCurrentRefinements } from 'react-instantsearch-meteor/connectors';
 import {
   Hits,
   Pagination,
@@ -10,13 +11,26 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import AppState from '/imports/startup/both/AppState.js';
 
-function ResultsModal({isSearching, handleClearSearchState, searchState, searchResults, searchUrl, LeftDrawerOpen}) {
-  const hasResults = true; // @todo - turn this into real variable
-  if (!isSearching) return null;
+function ResultsModal({isSearching, handleClearSearchState, searchState, searchResults, searchUrl, LeftDrawerOpen, items}) {
+  /*
+    Use this to replace this.isSearching in App (using connectCurrentRefinements in this component).
+    And abstract this away to an external function so it can be used elsewhere.
+    Needs:
+      items - from connectCurrentRefinements
+      searchState.query - from connectStateResults
+    Idea:
+      Create a separate component mounted under InstantSearch in App and update AppState from there
+      It should update on each change in searchState on it's own.
+  */
+  // if ( (items && items.length !== 0) || (searchState.hasOwnProperty('query') && searchState.query !== "") ) {
+  //   console.log('HAS QUERY!!!!');
+  //   AppState.set({isSearching: true});
+  // } else {
+  //   console.log('---NOQUERY---');
+  //   AppState.set({isSearching: false});
+  // }
 
-  // console.log('searchState', searchState);
-  // console.log('window.location', window.location);
-  console.log('isSearching', isSearching);
+  if (!isSearching) return null;
 
   return (
     <div id="ResultsModal">
@@ -56,10 +70,11 @@ const NoResults = ({query}) => {
   )
 }
 
-export default connectStateResults(withTracker(({isSearching, handleClearSearchState, searchState, searchResults, searchStateToUrl}) => {
+export default connectCurrentRefinements(connectStateResults(withTracker(({isSearching, handleClearSearchState, searchState, searchResults, searchStateToUrl, items}) => {
   // console.log('url', searchStateToUrl({location: window.location}, searchState));
+  // console.log('results-props', this.props);
   return {
     LeftDrawerOpen: AppState.get('LeftDrawerOpen'),
     searchUrl: searchStateToUrl({location: window.location}, searchState)
   }
-})(ResultsModal))
+})(ResultsModal)))

@@ -16,6 +16,8 @@ import {
   MenuSelect
 } from 'react-instantsearch-meteor/dom';
 import '/node_modules/react-instantsearch-theme-algolia/style.css';
+// import { connectCurrentRefinements } from 'react-instantsearch-meteor/connectors';
+// import CurrentRefinementsTest from '/imports/ui/both/components/Results/CurrentRefinementsTest.jsx';
 
 import { Button } from "react-bootstrap";
 import { Meteor } from 'meteor/meteor';
@@ -70,7 +72,7 @@ class App extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log('props, props.location', props, props.location);
+    // console.log('app-props:', props);
     if (props.location.key !== this.props.location.key) {
       this.normalizeState(this.urlToSearchState(props.location));
       this.setState({
@@ -97,7 +99,7 @@ class App extends React.Component {
       );
     }, this.updateAfter);
     // console.log('searchState:', searchState);
-    console.log('this.isSearching ( onSearchStateChange() )', this.isSearching);
+    // console.log('this.isSearching ( onSearchStateChange() )', this.isSearching);
 
     // add a "hasQuery? function like normalizeState and flip to true if one exists?"
     this.setState({ searchState, isSearching: this.isSearching });
@@ -154,12 +156,9 @@ class App extends React.Component {
 
     // console.log('this.isSearching / isSearching', this.isSearching, isSearching);
 
-    if (this.isSearching === false && isSearching === true) {
-      console.log('Transitioning to search/filter mode!');
-    }
-
     this.isSearching = isSearching;
-    console.log('isSearching (App)', isSearching);
+    // console.log('isSearching (App)', isSearching);
+
     return state;
   }
 
@@ -184,6 +183,7 @@ class App extends React.Component {
         onSearchStateChange={this.onSearchStateChange.bind(this)}
         createURL={this.createURL}
       >
+        {/* <CurrentRefinementsTest /> */}
         <h2>App</h2>
         <a href="" onClick={(e) => { e.preventDefault(); this.handleClearSearchState(); }}>Clear search state</a>
         <ul>
@@ -303,13 +303,14 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  history: PropTypes.shape({
-    // push: PropTypes.func.isRequired,
-  }),
-  location: PropTypes.object.isRequired,
-};
+// App.propTypes = {
+//   history: PropTypes.shape({
+//     // push: PropTypes.func.isRequired,
+//   }),
+//   location: PropTypes.object.isRequired,
+// };
 
+// connectCurrentRefinements()
 export default withRouter(withTracker(({location}) => {
   const defaultTitle = AppConfig.site.title + ' - ' + AppConfig.site.tagline
   const pageTitle = AppConfig.site.title + ' - ' + AppConfig.site.tagline

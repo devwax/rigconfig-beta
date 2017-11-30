@@ -17,11 +17,6 @@ import classnames from 'classnames';
 import FacetsContainer from './Facets/FacetsContainer.jsx';
 import { formatTitle } from '/imports/api/lib/formatTitle.js';
 
-// const QueryStateDemo = connectStateResults(everything => {
-//   console.log(everything);
-//   return null;
-// });
-
 function LeftDrawer({drawerStates, handleClearSearchState, isSearching}) {
   return (
     <div id="LeftDrawer" className={drawerStates}>
