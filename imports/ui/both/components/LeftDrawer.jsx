@@ -1,5 +1,4 @@
 import React from 'react';
-// import { connectStateResults } from 'react-instantsearch-meteor/connectors';
 import {
   RefinementList,
   ClearAll,
@@ -82,6 +81,8 @@ function LeftDrawer({drawerStates, handleClearSearchState, isSearching}) {
   )
 }
 
-export default withTracker(({drawerStates, handleClearSearchState, isSearching}) => {
-  return {}
+export default withTracker(({drawerStates, handleClearSearchState}) => {
+  return {
+    isSearching: AppState.get('isSearching')
+  }
 })(LeftDrawer)

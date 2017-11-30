@@ -16,8 +16,7 @@ import {
   MenuSelect
 } from 'react-instantsearch-meteor/dom';
 import '/node_modules/react-instantsearch-theme-algolia/style.css';
-// import { connectCurrentRefinements } from 'react-instantsearch-meteor/connectors';
-// import CurrentRefinementsTest from '/imports/ui/both/components/Results/CurrentRefinementsTest.jsx';
+import CurrentRefinementsModule from '/imports/ui/both/components/Results/CurrentRefinementsModule.jsx';
 
 import { Button } from "react-bootstrap";
 import { Meteor } from 'meteor/meteor';
@@ -53,7 +52,6 @@ class App extends React.Component {
     this.handleClearSearchState = this.handleClearSearchState.bind(this);
     this.onSearchStateChange = this.onSearchStateChange.bind(this);
     this.normalizeState = this.normalizeState.bind(this);
-    this.isSearching = false;
     this.updateAfter = 700;
     this.createURL = state => `?${qs.stringify(state)}`;
     this.searchStateToUrl = (props, searchState) => this.normalizeState(searchState) ? `${props.location.pathname}${this.createURL(searchState)}` : '';
@@ -61,28 +59,18 @@ class App extends React.Component {
     this.state = { searchState: this.urlToSearchState(props.location) };
   }
 
-  // This works, but why doesn't it work in constructor? ... isSearching not set?
+  // This works, but why doesn't it work in constructor? ... isSearching not set? -- @todo (isSearching)
   componentWillMount() {
     this.normalizeState(this.urlToSearchState(this.props.location));
-    this.setState({
-      searchState: this.urlToSearchState(this.props.location),
-      isSearching: this.isSearching
-    });
-
+    this.setState({ searchState: this.urlToSearchState(this.props.location) });
   }
 
   componentWillReceiveProps(props) {
     // console.log('app-props:', props);
     if (props.location.key !== this.props.location.key) {
       this.normalizeState(this.urlToSearchState(props.location));
-      this.setState({
-        searchState: this.urlToSearchState(props.location),
-        isSearching: this.isSearching
-      });
-
-      // console.log('this.isSearching ( componentWillReceiveProps() )', this.isSearching);
+      this.setState({ searchState: this.urlToSearchState(props.location) });
     }
-    // this.getSearchUrl();
   }
 
   onSearchStateChange(searchState) {
@@ -98,16 +86,8 @@ class App extends React.Component {
         searchState
       );
     }, this.updateAfter);
-    // console.log('searchState:', searchState);
-    // console.log('this.isSearching ( onSearchStateChange() )', this.isSearching);
 
-    // add a "hasQuery? function like normalizeState and flip to true if one exists?"
-    this.setState({ searchState, isSearching: this.isSearching });
-
-
-    // this.setState({isSearching: isSearching})
-    // window && (window.location.href = this.searchStateToUrl(this.props, searchState));
-
+    this.setState({ searchState });
   }
 
   handleClearSearchState() {
@@ -119,57 +99,39 @@ class App extends React.Component {
     );
   }
 
-  normalizeState(state = {}, isSearching = false) {
+  normalizeState(state = {}, hasValue = false) {
     // console.log('state', state);
 
     // state.refinementList
     if (state.hasOwnProperty('refinementList')) {
-      isSearching = false;
-      valuesIn(state.refinementList).map(i => i && i.map(v => v && (isSearching = true)));
-      !isSearching && delete state.refinementList;
-      // if (isSearching) { this.setState({isSearching: true}); return state; }
-      if (isSearching) { this.isSearching = true; return state; }
+      hasValue = false;
+      valuesIn(state.refinementList).map(i => i && i.map(v => v && (hasValue = true)));
+      if (!hasValue) { delete state.refinementList; return state; }
     }
 
     // state.menu
     if (state.hasOwnProperty('menu')) {
-      isSearching = false;
-      valuesIn(state.menu).map(i => i && (isSearching = true));
-      !isSearching && delete state.menu;
-      // if (isSearching) { this.setState({isSearching: true}); return state; }
-      if (isSearching) { this.isSearching = true; return state; }
+      hasValue = false;
+      valuesIn(state.menu).map(i => i && (hasValue = true));
+      if (!hasValue) { delete state.menu; return state; }
     }
 
     // state.query
     if (state.hasOwnProperty('query')) {
-      isSearching = false;
-      state.query && (isSearching = true);
-      !isSearching && delete state.query;
-      // if (isSearching) { this.setState({isSearching: true}); return state; }
-      if (isSearching) { this.isSearching = true; return state; }
+      hasValue = false;
+      state.query && (hasValue = true);
+      if (!hasValue) { delete state.query; return state;}
     }
 
     // state.page (must be last conditional in list)
-    if (state.hasOwnProperty('page') && isSearching === false && state.page == 1) {
-      delete state.page;
-    }
-
-    // console.log('this.isSearching / isSearching', this.isSearching, isSearching);
-
-    this.isSearching = isSearching;
-    // console.log('isSearching (App)', isSearching);
+    // if (state.hasOwnProperty('page') && hasValue === false && state.page == 1) {
+    //   delete state.page;
+    // }
 
     return state;
   }
 
-  // clearSearchState(state) {
-  //   this.setState{searchState: {}};
-  // }
-
   render() {
-    // console.log('this.props', this.props);
-    // console.log('this.getSearchUrl()', this.getSearchUrl());
-    // console.log('this.SearchUrl', this.SearchUrl);
     const { defaultTitle, pageTitle, canonicalURL, initialRender, UserSettingsModalOpen, drawerStates } = this.props;
     return (
       <InstantSearch
@@ -183,7 +145,8 @@ class App extends React.Component {
         onSearchStateChange={this.onSearchStateChange.bind(this)}
         createURL={this.createURL}
       >
-        {/* <CurrentRefinementsTest /> */}
+        <CurrentRefinementsModule searchState={this.state.searchState} />
+
         <h2>App</h2>
         <a href="" onClick={(e) => { e.preventDefault(); this.handleClearSearchState(); }}>Clear search state</a>
         <ul>
@@ -222,12 +185,11 @@ class App extends React.Component {
 
         <Navbar />
 
-        <LeftDrawer { ...{initialRender, drawerStates } } handleClearSearchState={this.handleClearSearchState} isSearching={this.state.isSearching} />
+        <LeftDrawer { ...{initialRender, drawerStates } } handleClearSearchState={this.handleClearSearchState} />
 
         <RightDrawer { ...{initialRender, drawerStates } } />
 
         <ResultsModal
-          isSearching={this.state.isSearching}
           handleClearSearchState={this.handleClearSearchState}
           searchStateToUrl={this.searchStateToUrl}
         />
@@ -286,31 +248,18 @@ class App extends React.Component {
         </div>
 
         <UserSettingsModal UserSettingsModalOpen={UserSettingsModalOpen} />
-
-
-
-        {/* <div>
-          <div>
-            <Hits />
-          </div>
-          <div>
-            <Pagination showLast={true} />
-          </div>
-        </div> */}
-
       </InstantSearch>
     );
   }
 }
 
-// App.propTypes = {
-//   history: PropTypes.shape({
-//     // push: PropTypes.func.isRequired,
-//   }),
-//   location: PropTypes.object.isRequired,
-// };
+App.propTypes = {
+  history: PropTypes.shape({
+    // push: PropTypes.func.isRequired,
+  }),
+  location: PropTypes.object.isRequired,
+};
 
-// connectCurrentRefinements()
 export default withRouter(withTracker(({location}) => {
   const defaultTitle = AppConfig.site.title + ' - ' + AppConfig.site.tagline
   const pageTitle = AppConfig.site.title + ' - ' + AppConfig.site.tagline

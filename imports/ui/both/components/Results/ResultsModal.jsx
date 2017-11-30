@@ -12,24 +12,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import AppState from '/imports/startup/both/AppState.js';
 
 function ResultsModal({isSearching, handleClearSearchState, searchState, searchResults, searchUrl, LeftDrawerOpen, items}) {
-  /*
-    Use this to replace this.isSearching in App (using connectCurrentRefinements in this component).
-    And abstract this away to an external function so it can be used elsewhere.
-    Needs:
-      items - from connectCurrentRefinements
-      searchState.query - from connectStateResults
-    Idea:
-      Create a separate component mounted under InstantSearch in App and update AppState from there
-      It should update on each change in searchState on it's own.
-  */
-  // if ( (items && items.length !== 0) || (searchState.hasOwnProperty('query') && searchState.query !== "") ) {
-  //   console.log('HAS QUERY!!!!');
-  //   AppState.set({isSearching: true});
-  // } else {
-  //   console.log('---NOQUERY---');
-  //   AppState.set({isSearching: false});
-  // }
-
   if (!isSearching) return null;
 
   return (
@@ -70,11 +52,12 @@ const NoResults = ({query}) => {
   )
 }
 
-export default connectCurrentRefinements(connectStateResults(withTracker(({isSearching, handleClearSearchState, searchState, searchResults, searchStateToUrl, items}) => {
+export default connectStateResults(withTracker(({handleClearSearchState, searchState, searchResults, searchStateToUrl}) => {
   // console.log('url', searchStateToUrl({location: window.location}, searchState));
   // console.log('results-props', this.props);
   return {
     LeftDrawerOpen: AppState.get('LeftDrawerOpen'),
-    searchUrl: searchStateToUrl({location: window.location}, searchState)
+    searchUrl: searchStateToUrl({location: window.location}, searchState),
+    isSearching: AppState.get('isSearching')
   }
-})(ResultsModal)))
+})(ResultsModal))

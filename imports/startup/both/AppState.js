@@ -27,6 +27,7 @@ AppState.set({
   facets: facetsDefault,
   results: [],
   searchResults: [],
+  isSearching: false,
 
   // results: [], // Could be pre-filled with an array of objects manually or automatically w/ fs.writeFile on server
   // results: {
