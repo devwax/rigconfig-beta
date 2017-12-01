@@ -3,12 +3,11 @@ import { connectCurrentRefinements } from 'react-instantsearch-meteor/connectors
 import AppState from '/imports/startup/both/AppState.js';
 
 function CurrentRefinementsModule({items, searchState}) {
-  // console.log('props.items-connectCurrentRefinements', items, searchState);
   if ( (items && items.length !== 0) || (searchState.hasOwnProperty('query') && searchState.query !== "") ) {
-    console.log('HAS QUERY!!!!');
+    // console.log('HAS QUERY');
     AppState.set({isSearching: true});
   } else {
-    console.log('---NOQUERY---');
+    // console.log('---NOQUERY---');
     AppState.set({isSearching: false});
   }
 

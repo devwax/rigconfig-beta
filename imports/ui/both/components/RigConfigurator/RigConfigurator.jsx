@@ -1,5 +1,6 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import { arrayMove } from 'react-sortable-hoc';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import AppState from '/imports/startup/both/AppState.js';
 import Actions from '/imports/startup/both/Actions.js';
@@ -12,14 +13,26 @@ import { getCurrentPublicRig } from '/imports/api/public_rigs/methods.js'
 import { formatCurrency } from '/imports/ui/both/helpers'
 import RigSelector from './RigSelector.jsx';
 import RigToolbar from './RigToolbar.jsx';
-import RigComponent from './RigComponent.jsx';
-import NoComponentsMessage from './NoComponentsMessage.jsx';
+// import RigComponent from './RigComponent.jsx';
+import RigComponentsList from './RigComponentsList.jsx';
+// import NoComponentsMessage from './NoComponentsMessage.jsx';
 
 class RigConfigurator extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { components: props.components }
+  }
+
+  componentDidUpdate() {
+    console.log('this.state.components-(componentDidUpdate)', this.state.components);
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ components: props.components });
+  }
+
   _handleEscKey(e) {
-    if(e.keyCode == 27){ // [esc]
-      AppState.set({rigSelectorOpen: false})
-    }
+    (e.keyCode == 27) && AppState.set({rigSelectorOpen: false})
   }
 
   componentWillMount() {
@@ -30,13 +43,32 @@ class RigConfigurator extends React.Component {
     document.removeEventListener("keydown", this._handleEscKey, false)
   }
 
+  onSortEnd({oldIndex, newIndex}) {
+    const components = arrayMove(this.state.components, oldIndex, newIndex);
+    this.setState(state => { components });
+    let count = 1;
+    components.map((c, i) => {
+      GuestRigComponents.update({
+        _id: c._id,
+        rigId: c.rigId
+      }, {
+        $set: { position: count }
+      });
+      count++;
+    })
+
+  }
+
   render() {
-    const { rig, components, componentsCount, hasComponents, myrigs, currentPublicRig, rigSelectorOpen, GuestUserData } = this.props;
+    const { rig, componentsCount, hasComponents, myrigs, currentPublicRig, rigSelectorOpen, GuestUserData } = this.props;
+    const components = this.state.components;
     let currencySymbol = '';
     let totalRigCostNumeric = parseFloat((0).toFixed(2));
 
+
     // @todo move this to a <RigComponentsList /> component
-    const RigComponents = components.map(component => {
+    // moved!
+    components.map(component => {
       // If the first character is not a number, then treat it as a currency symbol.
       // @todo - This is just a quick convenience feature at this point.
       if (component.price && isNaN(component.price[0])) {
@@ -47,8 +79,8 @@ class RigConfigurator extends React.Component {
       if (component.priceNumeric) {
         totalRigCostNumeric += parseFloat((component.priceNumeric).toFixed(2))
       }
-      return (<RigComponent component={component} key={component._id} />)
-    })
+    });
+
 
     const totalRigCostFormatted = formatCurrency(totalRigCostNumeric)
 
@@ -65,10 +97,18 @@ class RigConfigurator extends React.Component {
       <div id="RigConfigurator">
         <RigSelector rigTitle={rig.title} rigId={rig._id} rigPublic={rig.public} { ...{rigSelectorOpen, myrigs} } forkSourceId={forkSourceId}/>
         <RigToolbar rig={rig} currentPublicRig={currentPublicRig} GuestUserData={GuestUserData} />
-        <div id="components-list">
-          <h4 className="section-title">Components ({componentsCount}) <span id="totalRigCostFormatted-header">{currencySymbol + totalRigCostFormatted}</span></h4>
-          { hasComponents ? RigComponents : <NoComponentsMessage /> }
-        </div>
+        <RigComponentsList
+          components={components}
+          hasComponents={hasComponents}
+          totalRigCostNumeric={totalRigCostNumeric}
+          componentsCount={componentsCount}
+          currencySymbol={currencySymbol}
+          totalRigCostFormatted={totalRigCostFormatted}
+          // hideSortableGhost={false}
+          helperClass='sortableHelper'
+          pressDelay={200}
+          onSortEnd={this.onSortEnd.bind(this)}
+        />
 
         <Button className="addButton" bsSize="small" onClick={(e) => { Actions.addCustomComponentToRig(e, {}) }}><i className="fa fa-plus"></i>&nbsp; Add Component</Button>
 

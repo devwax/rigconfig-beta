@@ -199,30 +199,7 @@ class App extends React.Component {
           // {
           //   "type": "text/javascript",
           //   "innerHTML": heapInclude
-          // },
-          {
-            "type": "text/javascript",
-            "src": "/a/j/Sortable.js"
-          },
-
-          // Use this: https://github.com/clauderic/react-sortable-hoc
-          {
-            "type": "text/javascript",
-            "innerHTML": `
-              function initSortable() {
-                var el = document.getElementById('components-list');
-                // console.log(el)
-                var sortable = new Sortable.create(el, {
-                  draggable: ".rig-component",
-                  onEnd(e) {
-                    Actions.recalculateSortOrder();
-                  }
-                });
-              }
-              setTimeout(initSortable, 3000);
-              // @todo - race condition?
-            `
-          }
+          // }
         ]}
         />
 
@@ -255,7 +232,7 @@ class App extends React.Component {
 
 App.propTypes = {
   history: PropTypes.shape({
-    // push: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
   }),
   location: PropTypes.object.isRequired,
 };

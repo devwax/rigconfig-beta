@@ -197,40 +197,6 @@ if (Meteor.isClient) {
         Actions.createNewBlankRig()
       }
     },
-/*
-    addToRig(component) {
-      AppState.set({RightDrawerOpen: true})
-      console.log(component);
-      const rigId = AppState.get('currentRigId')
-      const position = 1000;
-      const { title, desc, type } = component
-      const componentId = component._id
-      let details = []
-
-      for (var detail in component) {
-        if (component.hasOwnProperty(detail)) {
-          details.push({name: detail, value: component[detail]})
-          // console.log({name: detail, value: component[detail]});
-        }
-      }
-
-      console.log('details:', details);
-
-      // console.log('component:', component);
-
-      GuestRigComponents.insert({
-        rigId,
-        componentId,
-        title,
-        desc,
-        position,
-        type,
-        details
-      })
-      // Actions.recalculateSortOrder()
-
-    },
-*/
 
     addToRig(component) {
       AppState.set({RightDrawerOpen: true})
@@ -259,8 +225,6 @@ if (Meteor.isClient) {
         type,
         details
       })
-      // Actions.recalculateSortOrder()
-
     },
 
     addCustomComponentToRig(e, component) {
@@ -279,24 +243,6 @@ if (Meteor.isClient) {
         position
       })
       // @todo - needs validation. See RigConfigurator/AddComponent.jsx for calling function
-      // Actions.recalculateSortOrder()
-    },
-
-    recalculateSortOrder() {
-      /**
-        @todo - jQuery isn't keeping track of components that are added or removed.
-        - Will need to use live, or ReactDOM.findDOMNode, etc. But it still works as expected.
-          The positions are recalculated and saved on sort.
-      */
-      const $componentsList = $('#components-list').children('.rig-component')
-      let count = 1;
-
-      $componentsList.each((i, v) => {
-        const rigId = AppState.get('currentRigId')
-        const componentId = $(v).data('rigComponentId')
-        GuestRigComponents.update({_id: componentId, rigId}, {$set: { position: count }})
-        count++
-      })
     },
 
     deleteFromRig(rigComponentId) {

@@ -9,6 +9,7 @@ import {
   Button,
   Tooltip
 } from 'react-bootstrap';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import RigComponentDetails from '/imports/ui/both/components/RigConfigurator/RigComponentDetails.jsx'
 import { $ } from 'meteor/jquery'
 import classnames from 'classnames';
@@ -21,7 +22,8 @@ import { componentLink } from '/imports/api/lib/componentLink.js';
 import marked from 'marked'
 import markdownRenderer from '/imports/api/lib/markdownRenderer.js'
 
-export default class RigComponent extends React.Component {
+// export default class RigComponent extends React.Component {
+class RigComponent extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -96,8 +98,6 @@ export default class RigComponent extends React.Component {
     e.preventDefault()
     const rigComponentId = this.props.component._id
     Actions.deleteFromRig(rigComponentId)
-    // console.log('recalc?');
-    Actions.recalculateSortOrder()
   }
 
   render() {
@@ -306,3 +306,5 @@ export default class RigComponent extends React.Component {
     )
   }
 }
+
+export default SortableElement(RigComponent);
