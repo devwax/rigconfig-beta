@@ -41,7 +41,7 @@ function LeftDrawer({drawerStates, handleClearSearchState, isSearching}) {
                 return transformed_items;
               }
             }
-            translations={{seeAllOption: "Components"}}
+            translations={{seeAllOption: "All Components"}}
           />
 
           {/* <ClearAll

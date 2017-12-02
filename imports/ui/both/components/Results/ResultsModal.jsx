@@ -10,6 +10,7 @@ import {
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import AppState from '/imports/startup/both/AppState.js';
+import Result from './Result.jsx'
 
 function ResultsModal({isSearching, handleClearSearchState, searchState, searchResults, searchUrl, LeftDrawerOpen, items}) {
   if (!isSearching) return null;
@@ -27,7 +28,11 @@ function ResultsModal({isSearching, handleClearSearchState, searchState, searchR
           {/* <ClearAll /> */}
           <div>
             <div>
-              <Hits />
+              <div className="resultsForComponents">
+                <ul className="results-list-format">
+                  <Hits hitComponent={Result} />
+                </ul>
+              </div>
             </div>
             <div>
               <Pagination showLast={true} />

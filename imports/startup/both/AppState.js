@@ -17,7 +17,7 @@ AppState.set({
   UserSettingsModalOpen: false,
   alertVisible: false,
   alertMessage: '',
-  LeftDrawerOpen: false,
+  LeftDrawerOpen: true,
   // RightDrawerOpen: Meteor.isDevelopment ? true : false,
   RightDrawerOpen: true,
   rigSelectorOpen: false,

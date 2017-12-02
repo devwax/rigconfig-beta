@@ -124,9 +124,9 @@ class App extends React.Component {
     }
 
     // state.page (must be last conditional in list)
-    // if (state.hasOwnProperty('page') && hasValue === false && state.page == 1) {
-    //   delete state.page;
-    // }
+    if (state.hasOwnProperty('page') && hasValue === false && state.page == 1) {
+      delete state.page;
+    }
 
     return state;
   }

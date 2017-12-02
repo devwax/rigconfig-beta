@@ -23,9 +23,9 @@ class RigConfigurator extends React.Component {
     this.state = { components: props.components }
   }
 
-  componentDidUpdate() {
-    console.log('this.state.components-(componentDidUpdate)', this.state.components);
-  }
+  // componentDidUpdate() {
+  //   console.log('this.state.components-(componentDidUpdate)', this.state.components);
+  // }
 
   componentWillReceiveProps(props) {
     this.setState({ components: props.components });
@@ -45,18 +45,30 @@ class RigConfigurator extends React.Component {
 
   onSortEnd({oldIndex, newIndex}) {
     const components = arrayMove(this.state.components, oldIndex, newIndex);
-    this.setState(state => { components });
-    let count = 1;
+
+    this.setState(state => ({components}), () => {
+      components.map((c, i) => {
+        GuestRigComponents.update({
+          _id: c._id,
+          rigId: c.rigId
+        }, {
+          $set: { position: i }
+        });
+      })
+    })
+
+    // Old synchronous setState:
+    /**
+    this.setState({ components });
     components.map((c, i) => {
       GuestRigComponents.update({
         _id: c._id,
         rigId: c.rigId
       }, {
-        $set: { position: count }
+        $set: { position: i }
       });
-      count++;
     })
-
+    */
   }
 
   render() {
@@ -106,7 +118,7 @@ class RigConfigurator extends React.Component {
           totalRigCostFormatted={totalRigCostFormatted}
           // hideSortableGhost={false}
           helperClass='sortableHelper'
-          pressDelay={200}
+          pressDelay={100}
           onSortEnd={this.onSortEnd.bind(this)}
         />
 
