@@ -8,8 +8,9 @@ import { GuestRigComponents } from '/imports/api/rig_components/guest_rig_compon
 // import SearchBox from '/imports/ui/both/components/Results/SearchBox.jsx'
 import { SearchBox } from 'react-instantsearch-meteor/dom';
 import GitlabLogoSvg from '/imports/ui/both/components/GitlabLogoSvg.jsx';
+// import ComparisonIcon from '/imports/ui/both/components/ComparisonIcon.jsx';
 
-function Navbar({LeftDrawerClass, RightDrawerClass, componentsCount}) {
+function Navbar({LeftDrawerClass, RightDrawerClass, componentsCount, comparisonCount}) {
   return (
     <div id="Navbar">
       <div id="Navbar-wrapper">
@@ -32,6 +33,16 @@ function Navbar({LeftDrawerClass, RightDrawerClass, componentsCount}) {
               {/* { componentsCount > 0 && <span className="badge">{componentsCount}</span> } */}
             </a>
 
+            <a id="ComparisonIcon" className="" href="" onClick={(e) => {
+              e.preventDefault();
+              console.log('welkrwerj');
+              // Actions.toggleComparisonModal(e);
+              AppState.set({ComparisonModalOpen: true})
+            }}>
+              <i className="fa fa-list-alt"></i>
+              <span className="badge">{comparisonCount}</span>
+            </a>
+
             <i id="UserSettings-toggle" onClick={(e) => {Actions.openUserSettingsModal(e)}} className="fa fa-cog"></i>
           </div>
           <div id="Navbar-content">
@@ -47,6 +58,7 @@ export default withTracker(() => {
   return {
     LeftDrawerClass:   AppState.get('LeftDrawerOpen')  ? 'active' : '',
     RightDrawerClass:  AppState.get('RightDrawerOpen') ? 'active' : '',
-    componentsCount:     AppState.get('componentsCount')
+    componentsCount:   AppState.get('componentsCount'),
+    comparisonCount:   AppState.get('componentComparisonList').length
   }
 })(Navbar)

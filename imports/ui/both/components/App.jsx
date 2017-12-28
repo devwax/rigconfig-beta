@@ -38,6 +38,8 @@ import Navbar from "/imports/ui/both/components/Navbar.jsx";
 import RightDrawer from "/imports/ui/both/components/RightDrawer.jsx";
 import LeftDrawer from "/imports/ui/both/components/LeftDrawer.jsx";
 import UserSettingsModal from "/imports/ui/both/modals/UserSettingsModal.jsx";
+import QuickViewModal from "/imports/ui/both/modals/QuickViewModal.jsx";
+import ComparisonModal from "/imports/ui/both/modals/ComparisonModal.jsx";
 // import { algoliaInclude } from '/imports/api/lib/algolia-include.js';
 // import { heapInclude } from '/imports/api/lib/heap-include.js';
 import PropTypes from 'prop-types';
@@ -45,7 +47,7 @@ import qs from 'qs';
 import orderBy from 'lodash.orderby';
 import valuesIn from 'lodash.valuesin';
 
-class App extends React.Component {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
     // console.log('props', props);
@@ -132,7 +134,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { defaultTitle, pageTitle, canonicalURL, initialRender, UserSettingsModalOpen, drawerStates } = this.props;
+    const { defaultTitle, pageTitle, canonicalURL, initialRender, UserSettingsModalOpen, QuickViewModalOpen, drawerStates, ResultsModalOpen } = this.props;
     return (
       <InstantSearch
         appId={Meteor.settings.public.algoliaAppId}
@@ -192,6 +194,7 @@ class App extends React.Component {
         <ResultsModal
           handleClearSearchState={this.handleClearSearchState}
           searchStateToUrl={this.searchStateToUrl}
+          ResultsModalOpen={ResultsModalOpen}
         />
 
         <Helmet
@@ -225,6 +228,9 @@ class App extends React.Component {
         </div>
 
         <UserSettingsModal UserSettingsModalOpen={UserSettingsModalOpen} />
+        {/* <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} /> */}
+        <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} />
+        <ComparisonModal />
       </InstantSearch>
     );
   }
@@ -245,6 +251,9 @@ export default withRouter(withTracker(({location}) => {
   const RightDrawerOpen = AppState.get('RightDrawerOpen')
   const initialRender = AppState.get('initialRender')
   const UserSettingsModalOpen = AppState.get('UserSettingsModalOpen')
+  const QuickViewModalOpen = AppState.get('QuickViewModalOpen')
+  const ResultsModalOpen = AppState.get('ResultsModalOpen')
+  // const ComparisonModalOpen = AppState.get('ComparisonModalOpen')
   const drawerStates = classnames({LeftDrawerOpen, RightDrawerOpen})
   // console.log('location-App', location);
   return {
@@ -255,6 +264,9 @@ export default withRouter(withTracker(({location}) => {
     LeftDrawerOpen,
     initialRender,
     UserSettingsModalOpen,
+    QuickViewModalOpen,
+    ResultsModalOpen,
+    // ComparisonModalOpen,
     drawerStates
   }
 })(App));

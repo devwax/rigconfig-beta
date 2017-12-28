@@ -73,7 +73,7 @@ function ComponentPage({componentData, publicFields, notFound, loading}) {
                 target={`_${componentData.part_number}`}
               >
                 <i className="fa fa-pencil"></i>
-                <span>&nbsp;Edit</span>
+                <span>&nbsp; Edit</span>
               </Button>
             </div>
           }

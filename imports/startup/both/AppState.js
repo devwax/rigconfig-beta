@@ -15,6 +15,12 @@ const facetsDefault = [
 
 AppState.set({
   UserSettingsModalOpen: false,
+  QuickViewModalOpen: false,
+  ResultsModalOpen: false,
+  ComparisonModalOpen: false,
+  hit: {},
+  // compareState: false,
+  componentComparisonList: [],
   alertVisible: false,
   alertMessage: '',
   LeftDrawerOpen: true,

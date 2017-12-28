@@ -1,3 +1,68 @@
-li.Result.inRig {
-  outline: 1px solid @brand-primary;
+.Result.inRig h4 {
+  font-weight: bold;
+}
+.Result h4:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.Result span.count {
+  font-weight: normal;
+  padding-left: 5px;
+}
+
+.ais-Hits__root .Result button {
+  box-shadow: none !important;
+  border: solid 1px #c3c3c3 !important;
+  background-color: white;
+  color: #555;
+  border-radius: 0 !important;
+  padding: 4px 11px !important;
+  &:hover {
+    background-color: @brand-primary !important;
+    color: white !important;
+    border: solid 1px white !important;
+  }
+  &.quick-view:hover {
+    background-color: white !important;
+    color: #333 !important;
+    border: solid 1px #999 !important;
+  }
+  &:focus {
+    background-color: white;
+  }
+  &.minus:hover {
+    background-color: #f3f3f3 !important;
+    color: #555 !important;
+    border: solid 1px #a0a0a0 !important;
+  }
+
+  &.add-to-rig-button.inRig {
+    background-color: @brand-primary;
+    color: white;
+    border: solid 1px white !important;
+  }
+}
+
+.compare-components {
+  margin-left: 25px;
+  .ais-RefinementList__item {
+    display: inline;
+    color: #555;
+    font-size: 80%;
+  }
+}
+
+ul.results-list-format {
+  padding-left: 0;
+  margin-bottom: 3rem;
+  li {
+    list-style: none;
+    padding: 10px 0;
+    margin-bottom: 4px;
+    border-bottom: 1px solid lighten(gray, 35%);
+    h4 {
+      margin-top: 0;
+    }
+  }
 }

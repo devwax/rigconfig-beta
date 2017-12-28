@@ -1,13 +1,38 @@
-.modal-backdrop.fade {
+.modal-backdrop, .modal-backdrop.fade {
   z-index: @layer-modal;
 }
 
-.fade.modal {
+.modal, .fade.modal {
   z-index: @layer-modal;
 }
 
 .modal-content {
   border-radius: 3px;
+
+}
+
+.modal-body {
+  padding: 0;
+}
+
+.modal-dialog {
+  margin-top: 10px;
+}
+
+.modal-header .close {
+  margin-top: 0;
+}
+
+@media (min-width: @screen-sm-min) {
+  .modal-dialog {
+    width: 750px;
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .modal-dialog {
+    width: 900px;
+  }
 }
 
 // .ListGroup .link-label {

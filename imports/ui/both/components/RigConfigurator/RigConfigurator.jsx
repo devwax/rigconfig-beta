@@ -118,7 +118,7 @@ class RigConfigurator extends React.Component {
           totalRigCostFormatted={totalRigCostFormatted}
           // hideSortableGhost={false}
           helperClass='sortableHelper'
-          pressDelay={100}
+          pressDelay={150}
           onSortEnd={this.onSortEnd.bind(this)}
         />
 

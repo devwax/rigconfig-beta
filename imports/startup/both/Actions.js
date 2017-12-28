@@ -15,7 +15,10 @@ if (Meteor.isClient) {
   Actions = {
     closeAllModals() {
       AppState.set({
-        UserSettingsModalOpen: false
+        UserSettingsModalOpen: false,
+        QuickViewModalOpen: false,
+        ComparisonModalOpen: false,
+        hit: {}
       })
     },
 
@@ -34,6 +37,17 @@ if (Meteor.isClient) {
         AppState.set({RightDrawerOpen: false})
       } else {
         AppState.set({RightDrawerOpen: true})
+      }
+    },
+
+    toggleComparisonModal(e) {
+      if (e) { e.preventDefault() }
+      // console.log('toggleComparisonModal Fired!');
+      // AppState.set({ComparisonModalOpen: true})
+      if ( AppState.get('ComparisonModalOpen') ) {
+        AppState.set({ComparisonModalOpen: false})
+      } else {
+        AppState.set({ComparisonModalOpen: true})
       }
     },
 
@@ -205,6 +219,8 @@ if (Meteor.isClient) {
       const position = 1000;
       const { title, desc, type } = component
       const componentId = component._id
+      console.log('Actions: component', component);
+      console.log('Actions: componentId', componentId);
       let details = []
 
       for (var detail in component) {
