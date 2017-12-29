@@ -15,11 +15,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import AppState from '/imports/startup/both/AppState.js';
 import Result from './Result.jsx'
 
-function ResultsModal({isSearching, handleClearSearchState, searchState, searchResults, searchUrl, LeftDrawerOpen, items}) {
+function ResultsModal({isSearching, handleClearSearchState, searchState, searchResults, searchUrl, drawerStates, items}) {
   if (!isSearching) return null;
   // searchResults && console.log(searchResults.hits);
   return (
-    <div id="ResultsModal">
+    <div id="ResultsModal" className={drawerStates}>
       { searchResults && searchResults.nbHits !== 0 ?
         <div className="resultsList">
           <h2 className="page-title-small">
@@ -79,11 +79,10 @@ const NoResults = ({query}) => {
   )
 }
 
-export default connectStateResults(withTracker(({handleClearSearchState, searchState, searchResults, searchStateToUrl}) => {
+export default connectStateResults(withTracker(({handleClearSearchState, searchState, searchResults, searchStateToUrl, drawerStates}) => {
   // console.log('url', searchStateToUrl({location: window.location}, searchState));
   // console.log('results-props', this.props);
   return {
-    LeftDrawerOpen: AppState.get('LeftDrawerOpen'),
     searchUrl: searchStateToUrl({location: window.location}, searchState),
     isSearching: AppState.get('isSearching')
   }

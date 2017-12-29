@@ -134,7 +134,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const { defaultTitle, pageTitle, canonicalURL, initialRender, UserSettingsModalOpen, QuickViewModalOpen, drawerStates, ResultsModalOpen } = this.props;
+    const { defaultTitle, pageTitle, canonicalURL, initialRender, UserSettingsModalOpen, QuickViewModalOpen, drawerStates } = this.props;
     return (
       <InstantSearch
         appId={Meteor.settings.public.algoliaAppId}
@@ -194,7 +194,7 @@ class App extends React.PureComponent {
         <ResultsModal
           handleClearSearchState={this.handleClearSearchState}
           searchStateToUrl={this.searchStateToUrl}
-          ResultsModalOpen={ResultsModalOpen}
+          drawerStates={drawerStates}
         />
 
         <Helmet
@@ -252,7 +252,6 @@ export default withRouter(withTracker(({location}) => {
   const initialRender = AppState.get('initialRender')
   const UserSettingsModalOpen = AppState.get('UserSettingsModalOpen')
   const QuickViewModalOpen = AppState.get('QuickViewModalOpen')
-  const ResultsModalOpen = AppState.get('ResultsModalOpen')
   // const ComparisonModalOpen = AppState.get('ComparisonModalOpen')
   const drawerStates = classnames({LeftDrawerOpen, RightDrawerOpen})
   // console.log('location-App', location);
@@ -265,7 +264,6 @@ export default withRouter(withTracker(({location}) => {
     initialRender,
     UserSettingsModalOpen,
     QuickViewModalOpen,
-    ResultsModalOpen,
     // ComparisonModalOpen,
     drawerStates
   }

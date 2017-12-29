@@ -35,7 +35,6 @@ function Navbar({LeftDrawerClass, RightDrawerClass, componentsCount, comparisonC
 
             <a id="ComparisonIcon" className="" href="" onClick={(e) => {
               e.preventDefault();
-              console.log('welkrwerj');
               // Actions.toggleComparisonModal(e);
               AppState.set({ComparisonModalOpen: true})
             }}>

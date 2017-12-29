@@ -1,10 +1,14 @@
 #ResultsModal {
   position: absolute;
   top: 52px;
-  left: 230px;
+  left: 0;
   right: 0;
   background-color: #f9f9f9;
   padding: 0 1rem 1rem 1.9rem;
+
+  &.LeftDrawerOpen {
+    left: 230px;
+  }
 
   .NoResults {
     min-height: 100vh;

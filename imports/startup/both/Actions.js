@@ -219,8 +219,6 @@ if (Meteor.isClient) {
       const position = 1000;
       const { title, desc, type } = component
       const componentId = component._id
-      console.log('Actions: component', component);
-      console.log('Actions: componentId', componentId);
       let details = []
 
       for (var detail in component) {

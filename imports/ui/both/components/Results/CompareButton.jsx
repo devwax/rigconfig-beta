@@ -25,10 +25,6 @@ class CompareButton extends React.PureComponent {
   //   console.log('Mounted! componentId', this.props.componentId);
   // }
 
-  componentWillUpdate() {
-    console.log('componentComparisonList', AppState.get('componentComparisonList'));
-  }
-
   render() {
     return (
       <span className="compare-components">
