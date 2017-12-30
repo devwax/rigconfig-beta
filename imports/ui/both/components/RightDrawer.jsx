@@ -6,7 +6,7 @@ import { Meteor } from 'meteor/meteor';
 
 import RigConfigurator from '/imports/ui/both/components/RigConfigurator/RigConfigurator.jsx';
 
-export default function RightDrawer({initialRender, drawerStates}) {
+export default function RightDrawer({drawerStates}) {
   return (
     <div id="RightDrawer" className={drawerStates}>
       <Scrollbars
@@ -17,7 +17,6 @@ export default function RightDrawer({initialRender, drawerStates}) {
         thumbMinSize={0}
       >
         <div className="RightDrawer-container">
-          {/* { !initialRender && <RigConfigurator /> } */}
           <RigConfigurator />
         </div>
       </Scrollbars>

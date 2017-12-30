@@ -72,7 +72,6 @@ AppState.set({
   */
 
   currentPublicRig: false,
-  initialRender: true,
   GuestRigComponents: [],
   algoliaActive: false,
   algoliaQuery: "",

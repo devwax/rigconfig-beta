@@ -9,16 +9,14 @@ import Actions from '/imports/startup/both/Actions.js';
 import classnames from 'classnames';
 import FacetsContainer from './Facets/FacetsContainer.jsx'
 
-function LeftDrawer({initialRender, drawerStates, hasQuery}) {
+function LeftDrawer({drawerStates}) {
   const clearButtonClasses = classnames({
     "clear-button": true,
-    "disabled": !hasQuery,
     "full-width": true
   })
 
   const clearButtonPlaceholderClasses = classnames({
-    "clear-button-placeholder": true,
-    "disabled": hasQuery
+    "clear-button-placeholder": true
   })
 
   return (
@@ -71,8 +69,6 @@ function LeftDrawer({initialRender, drawerStates, hasQuery}) {
   )
 }
 
-export default withTracker(({initialRender, drawerStates}) => {
-  return {
-    hasQuery: AppState.get('algoliaActive')
-  }
-})(LeftDrawer)
+export default LeftDrawer
+
+// export default withTracker(({drawerStates}) => ({hasQuery: AppState.get('algoliaActive')}))(LeftDrawer)

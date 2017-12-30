@@ -40,6 +40,7 @@ import LeftDrawer from "/imports/ui/both/components/LeftDrawer.jsx";
 import UserSettingsModal from "/imports/ui/both/modals/UserSettingsModal.jsx";
 import QuickViewModal from "/imports/ui/both/modals/QuickViewModal.jsx";
 import ComparisonModal from "/imports/ui/both/modals/ComparisonModal.jsx";
+import ComponentPageAlgolia from "/imports/ui/both/pages/ComponentPageAlgolia.jsx";
 // import { algoliaInclude } from '/imports/api/lib/algolia-include.js';
 // import { heapInclude } from '/imports/api/lib/heap-include.js';
 import PropTypes from 'prop-types';
@@ -134,7 +135,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const { defaultTitle, pageTitle, canonicalURL, initialRender, UserSettingsModalOpen, QuickViewModalOpen, drawerStates } = this.props;
+    const { defaultTitle, pageTitle, canonicalURL, UserSettingsModalOpen, QuickViewModalOpen, drawerStates } = this.props;
     return (
       <InstantSearch
         appId={Meteor.settings.public.algoliaAppId}
@@ -187,9 +188,9 @@ class App extends React.PureComponent {
 
         <Navbar />
 
-        <LeftDrawer { ...{initialRender, drawerStates } } handleClearSearchState={this.handleClearSearchState} />
+        <LeftDrawer { ...{ drawerStates } } handleClearSearchState={this.handleClearSearchState} />
 
-        <RightDrawer { ...{initialRender, drawerStates } } />
+        <RightDrawer { ...{ drawerStates } } />
 
         <ResultsModal
           handleClearSearchState={this.handleClearSearchState}
@@ -205,6 +206,8 @@ class App extends React.PureComponent {
           // }
         ]}
         />
+
+        <ComponentPageAlgolia componentId="ROG MAXIMUS IX HERO" />
 
         <div className="site-footer">
           <p className="" style={{float: 'left'}}>
@@ -249,7 +252,6 @@ export default withRouter(withTracker(({location}) => {
   const canonicalURL = AppConfig.site.rootUri + location.pathname
   const LeftDrawerOpen = AppState.get('LeftDrawerOpen')
   const RightDrawerOpen = AppState.get('RightDrawerOpen')
-  const initialRender = AppState.get('initialRender')
   const UserSettingsModalOpen = AppState.get('UserSettingsModalOpen')
   const QuickViewModalOpen = AppState.get('QuickViewModalOpen')
   // const ComparisonModalOpen = AppState.get('ComparisonModalOpen')
@@ -261,7 +263,6 @@ export default withRouter(withTracker(({location}) => {
     canonicalURL,
     RightDrawerOpen,
     LeftDrawerOpen,
-    initialRender,
     UserSettingsModalOpen,
     QuickViewModalOpen,
     // ComparisonModalOpen,
