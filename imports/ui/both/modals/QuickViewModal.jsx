@@ -229,7 +229,7 @@ export default withTracker(() => {
   // console.log('inRig', inRig);
   // console.log('inRigCount', inRigCount);
   // console.log('matchedComponentId', matchedComponentId);
-
+  // console.log('hit', hit);
   return {
     // hit: AppState.get('hit'),
     hit,

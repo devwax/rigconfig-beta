@@ -73,7 +73,6 @@ export default class ResultsForRigs extends React.Component {
     const sizesOpen   = [ { columns: 2, gutter: 20 }, { mq: '768px', columns: 2, gutter: 20 }, { mq: '1000px', columns: 3, gutter: 20 }, { mq: '1260px', columns: 4, gutter: 20 }, { mq: '1500px', columns: 5, gutter: 20 } ];
     const sizesClosed = [ { columns: 2, gutter: 20 }, { mq: '768px', columns: 4, gutter: 20 }, { mq: '1024px', columns: 5, gutter: 20 }, { mq: '1402px', columns: 5, gutter: 20 } ];
     const sizes = this.props.LeftDrawerOpen ? sizesOpen : sizesClosed
-
     return (
       <MasonryLayout
         id="MasonryItems"
@@ -98,7 +97,7 @@ export default class ResultsForRigs extends React.Component {
             title = rig.title
           }
           title = {__html: title}
-// console.log('rig', rig);
+
           return (
             <div
               key={i}
@@ -113,15 +112,7 @@ export default class ResultsForRigs extends React.Component {
               {rig.hasOwnProperty("desc") && <p className="desc">{truncateText(stripHTML(marked(rig.desc, {renderer: markdownRenderer})), 120)}</p>}
 
               <ul className="components">
-                {/* {rig.hasOwnProperty("components") && rig.components.map( (c, i) => (c.title && c.hasOwnProperty("type")) && <li onClick={(e) => {this.context.router.push(componentLink(c.componentId, c.type, c.title))}} key={i}>{c.title}</li> )} */}
-                { rig.hasOwnProperty("components") &&
-                  rig.components.map(
-                    (c, i) => {
-                      if (c.title && c.hasOwnProperty("type")) {
-                        return (<li key={i}><Link to={componentLink(c.componentId, c.type, c.title)}>{c.title}</Link></li>)
-                      }
-                    })
-                  }
+                {rig.components.map( (c, i) => (c.title && c.hasOwnProperty("type")) && <li onClick={(e) => {this.context.router.push(componentLink(c.componentId, c.type, c.title))}} key={i}>{c.title}</li> )}
               </ul>
 
               <div className="buttons">

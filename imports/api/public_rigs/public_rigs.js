@@ -10,11 +10,11 @@ class PublicRigsCollection extends Mongo.Collection {
 
     // strip html from desc and title
     if (rig.hasOwnProperty("desc")) {
-      rig.desc = rig.desc.replace(/<(?:.|\n)*?>/gm, '');
+      rig.desc && (rig.desc = rig.desc.replace(/<(?:.|\n)*?>/gm, ''));
     }
 
     if (rig.hasOwnProperty("title")) {
-      rig.title = rig.title.replace(/<(?:.|\n)*?>/gm, '');
+      rig.title && (rig.title = rig.title.replace(/<(?:.|\n)*?>/gm, ''));
     }
 
     let slug = slugify(rig.title)

@@ -8,15 +8,15 @@ class CompareButton extends React.PureComponent {
     compareState: false
   }
 
-  addToComparison = (componentId, componentComparisonList = []) => {
+  addToComparison = (component, componentComparisonList = []) => {
     componentComparisonList = AppState.get('componentComparisonList');
-    componentComparisonList.push(componentId);
+    componentComparisonList.push(component);
     AppState.set({componentComparisonList});
   }
 
   removeFromComparison = (componentId, componentComparisonList = []) => {
     componentComparisonList = AppState.get('componentComparisonList');
-    componentComparisonList = componentComparisonList.filter((i) => i !== componentId);
+    componentComparisonList = componentComparisonList.filter(c => c._id !== componentId);
     AppState.set({componentComparisonList});
   }
 
@@ -37,14 +37,19 @@ class CompareButton extends React.PureComponent {
               onChange={() => {
                 this.setState(state => ({compareState: !state.compareState}));
                 !this.state.compareState ?
-                  this.addToComparison(this.props.componentId)
+                  this.addToComparison(this.props.component)
                   :
                   this.removeFromComparison(this.props.componentId)
               }}
             />
             <span className="ais-RefinementList__itemBox ais-RefinementList__itemBox ais-RefinementList__itemBoxSelected"></span>
-            <span className="ais-RefinementList__itemLabel ais-RefinementList__itemLabel ais-RefinementList__itemLabelSelected" style={{verticalAlign: 'middle'}}>COMPARE</span>
           </label>
+          <span
+            onClick={() => {
+              AppState.set({ComparisonModalOpen: true})
+            }}
+            className="ais-RefinementList__itemLabel ais-RefinementList__itemLabel ais-RefinementList__itemLabelSelected"
+            style={{verticalAlign: 'middle'}}>COMPARE</span>
         </div>
       </span>
     )

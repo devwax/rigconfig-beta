@@ -37,6 +37,13 @@ class ComparisonModal extends React.Component {
         </Modal.Header>
 
         <Modal.Body>
+          <Button className="compare-clear-all"
+            bsSize="xsmall"
+            onClick={ e => { e.preventDefault(); AppState.set({componentComparisonList: []}) } }>
+              <i className="fa fa-close"></i>
+              {" "}
+              <span>Clear All</span>
+            </Button>
           {/* <h4>{this.props.hit.title}</h4> */}
           {/* <Table striped bordered condensed hover className="ComponentDetails"> */}
             {/* <tbody> */}
@@ -45,7 +52,9 @@ class ComparisonModal extends React.Component {
               {/* { sources && sources.map((field, id) => <tr key={id}><td className="label">{formatTitle(field.name)}</td><td>{field.value}</td></tr>) } */}
             {/* </tbody> */}
           {/* </Table> */}
-          Modal stuff here...
+          <ul>
+            { this.props.componentComparisonList.map(c => <li key={c._id}>{c.title}</li>) }
+          </ul>
 
         </Modal.Body>
       </Modal>
@@ -55,6 +64,7 @@ class ComparisonModal extends React.Component {
 
 export default withTracker(() => {
   return {
-    ComparisonModalOpen: AppState.get('ComparisonModalOpen')
+    ComparisonModalOpen: AppState.get('ComparisonModalOpen'),
+    componentComparisonList: AppState.get('componentComparisonList')
   }
 })(ComparisonModal)

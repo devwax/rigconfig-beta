@@ -186,7 +186,7 @@ export default class RigToolbar extends React.Component {
       See: https://github.com/aldeed/meteor-simple-schema/issues/64
       (tried this, just got rejected w/ vlidation error again)
     */
-    console.log('publicRig', publicRig);
+    // console.log('publicRig', publicRig);
     insertPublicRig.call(publicRig, (e, r) => {
       if (r) {
         GuestRigs.update(rigId, {$set: {public: true}})

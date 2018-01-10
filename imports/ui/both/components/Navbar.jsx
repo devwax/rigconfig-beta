@@ -39,7 +39,7 @@ function Navbar({LeftDrawerClass, RightDrawerClass, componentsCount, comparisonC
               AppState.set({ComparisonModalOpen: true})
             }}>
               <i className="fa fa-list-alt"></i>
-              <span className="badge">{comparisonCount}</span>
+              { (comparisonCount > 0) && <span className="badge">{comparisonCount}</span> }
             </a>
 
             <i id="UserSettings-toggle" onClick={(e) => {Actions.openUserSettingsModal(e)}} className="fa fa-cog"></i>

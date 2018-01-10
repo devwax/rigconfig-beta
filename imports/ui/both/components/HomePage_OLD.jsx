@@ -6,20 +6,14 @@ import AppState from '/imports/startup/both/AppState.js';
 // import Actions from '/imports/startup/both/Actions.js';
 import { PublicRigs } from '/imports/api/public_rigs/public_rigs.js';
 import Results from '/imports/ui/both/components/Results/Results.jsx';
-import ResultsForRigs from '/imports/ui/both/components/Results/ResultsForRigs.jsx';
 import { publicRigsCount } from '/imports/api/public_rigs/methods.js';
 
 function HomePage({results, resultsType}) {
   return (
     <div id="HomePage">
+      <h2>HomePage</h2>
       <h2 className="page-title-small">Latest Rigs</h2>
-
-      <Results results={results} resultsType={resultsType} />
-      {/* { !loading &&
-        <ul>
-          { publicRigs.map(rig => <li key={rig._id}>{rig.title}</li>) }
-        </ul>
-      } */}
+      {/* <Results results={results} resultsType={resultsType} /> */}
 
       {/* <div style={{marginTop: '50px', padding: '10px', border: '1px solid lightgray'}}>
         <ul>

@@ -85,6 +85,8 @@ export default withTracker(({results, resultsType, ComponentType}) => {
     ComponentType = results[0].type
   }
 
+  // console.log('Results.jsx > results', results);
+
   return {
     // nbHits: AppState.get('algoliaActive') ? numberWithCommas(AppState.get('nbHits')) : false,
     results,

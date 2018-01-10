@@ -40,7 +40,6 @@ import LeftDrawer from "/imports/ui/both/components/LeftDrawer.jsx";
 import UserSettingsModal from "/imports/ui/both/modals/UserSettingsModal.jsx";
 import QuickViewModal from "/imports/ui/both/modals/QuickViewModal.jsx";
 import ComparisonModal from "/imports/ui/both/modals/ComparisonModal.jsx";
-import ComponentPageAlgolia from "/imports/ui/both/pages/ComponentPageAlgolia.jsx";
 // import { algoliaInclude } from '/imports/api/lib/algolia-include.js';
 // import { heapInclude } from '/imports/api/lib/heap-include.js';
 import PropTypes from 'prop-types';
@@ -137,104 +136,104 @@ class App extends React.PureComponent {
   render() {
     const { defaultTitle, pageTitle, canonicalURL, UserSettingsModalOpen, QuickViewModalOpen, drawerStates } = this.props;
     return (
-      <InstantSearch
-        appId={Meteor.settings.public.algoliaAppId}
-        apiKey={Meteor.settings.public.algoliaSearchApiKey}
-        indexName="rigconfig_components"
-        // appId="latency"
-        // apiKey="6be0576ff61c053d5f9a3225e2a90f76"
-        // indexName="ikea"
-        searchState={this.state.searchState}
-        onSearchStateChange={this.onSearchStateChange.bind(this)}
-        createURL={this.createURL}
-      >
-        <CurrentRefinementsModule searchState={this.state.searchState} />
+      <div id="App" className={drawerStates}>
+        <InstantSearch
+          appId={Meteor.settings.public.algoliaAppId}
+          apiKey={Meteor.settings.public.algoliaSearchApiKey}
+          indexName="rigconfig_components"
+          // appId="latency"
+          // apiKey="6be0576ff61c053d5f9a3225e2a90f76"
+          // indexName="ikea"
+          searchState={this.state.searchState}
+          onSearchStateChange={this.onSearchStateChange.bind(this)}
+          createURL={this.createURL}
+        >
+          <CurrentRefinementsModule searchState={this.state.searchState} />
 
-        <h2>App</h2>
-        <a href="" onClick={(e) => { e.preventDefault(); this.handleClearSearchState(); }}>Clear search state</a>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/testpage">TestPage</Link></li>
-        </ul>
+          {/* <h2>App</h2>
+          <a href="" onClick={(e) => { e.preventDefault(); this.handleClearSearchState(); }}>Clear search state</a>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/testpage">TestPage</Link></li>
+          </ul> */}
 
-        <Switch>
-          <Route exact path="/" name="homepage" component={HomePage} />
-          {/* <Route path="/c/:type" component={ComponentCategory} /> */}
-          <Route path="/c/:type/:id" component={ComponentPage} />
-          <Route path="/rig/:id" component={RigPage} />
-          <Route path="/search" component={SearchPage} />
-          <Route path="/testpage" name="testpage" component={TestPage} />
-          <Route component={NotFound}/>
-        </Switch>
+          <Switch>
+            <Route exact path="/" name="homepage" component={HomePage} />
+            {/* <Route path="/c/:type" component={ComponentCategory} /> */}
+            <Route path="/c/:type/:id" component={ComponentPage} />
+            <Route path="/rig/:id" component={RigPage} />
+            <Route path="/search" component={SearchPage} />
+            <Route path="/testpage" name="testpage" component={TestPage} />
+            <Route component={NotFound}/>
+          </Switch>
 
-        <Helmet
-          {...defaultTitle}
-          title={pageTitle}
-          link={[
-            {"rel": "stylesheet", "href": "https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css"},
-            {"rel": "canonical", "href": canonicalURL},
-            {"rel": "apple-touch-icon", "sizes": "180x180", "href": "/apple-touch-icon.png"},
-            {"rel": "icon", "type":"image/png", "href": "/favicon-32x32.png", "sizes": "32x32"},
-            {"rel": "icon", "type":"image/png", "href": "/favicon-16x16.png", "sizes": "16x16"},
-            {"rel": "manifest", "href": "/manifest.json"},
-            {"rel": "mask-icon", "href": "/safari-pinned-tab.svg", "color": "#ee0b0b"}
+          <Helmet
+            {...defaultTitle}
+            title={pageTitle}
+            link={[
+              {"rel": "stylesheet", "href": "https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css"},
+              {"rel": "canonical", "href": canonicalURL},
+              {"rel": "apple-touch-icon", "sizes": "180x180", "href": "/apple-touch-icon.png"},
+              {"rel": "icon", "type":"image/png", "href": "/favicon-32x32.png", "sizes": "32x32"},
+              {"rel": "icon", "type":"image/png", "href": "/favicon-16x16.png", "sizes": "16x16"},
+              {"rel": "manifest", "href": "/manifest.json"},
+              {"rel": "mask-icon", "href": "/safari-pinned-tab.svg", "color": "#ee0b0b"}
+            ]}
+            meta={[
+              {"name": "apple-mobile-web-app-title", "content": "RigConfig"},
+              {"name": "application-name", "content": "RigConfig"},
+              {"name": "theme-color", "content": "#ffffff"}
+            ]}
+          />
+
+          <Navbar />
+
+          <LeftDrawer { ...{ drawerStates } } handleClearSearchState={this.handleClearSearchState} />
+
+          <RightDrawer { ...{ drawerStates } } />
+
+          <ResultsModal
+            handleClearSearchState={this.handleClearSearchState}
+            searchStateToUrl={this.searchStateToUrl}
+            drawerStates={drawerStates}
+          />
+
+          <Helmet
+            script={[
+            // {
+            //   "type": "text/javascript",
+            //   "innerHTML": heapInclude
+            // }
           ]}
-          meta={[
-            {"name": "apple-mobile-web-app-title", "content": "RigConfig"},
-            {"name": "application-name", "content": "RigConfig"},
-            {"name": "theme-color", "content": "#ffffff"}
-          ]}
-        />
+          />
 
-        <Navbar />
+          <div className="site-footer">
+            <p className="" style={{float: 'left'}}>
+              {/* <a href="https://gitlab.com/rigconfig/ccdb" target="ccdb">Add Components</a> */}
+              <Button
+                bsSize="small"
+                className="add-components-link"
+                bsStyle="link"
+                href="https://gitlab.com/rigconfig/ccdb#ccdb-computer-component-database"
+                target="ccdb"
+              >
+                <i className="fa fa-plus"></i>
+                <span>&nbsp;Add Components</span>
+              </Button>
+            </p>
+            <p style={{float: 'right'}}>
+              <a href="/privacy-policy.html" rel="nofollow" target="_privacy-policy">Privacy Policy</a>
+              <span className="divider">|</span>
+              <a href="/tos.html" rel="nofollow" target="_tos">TOS</a>
+            </p>
+          </div>
 
-        <LeftDrawer { ...{ drawerStates } } handleClearSearchState={this.handleClearSearchState} />
-
-        <RightDrawer { ...{ drawerStates } } />
-
-        <ResultsModal
-          handleClearSearchState={this.handleClearSearchState}
-          searchStateToUrl={this.searchStateToUrl}
-          drawerStates={drawerStates}
-        />
-
-        <Helmet
-          script={[
-          // {
-          //   "type": "text/javascript",
-          //   "innerHTML": heapInclude
-          // }
-        ]}
-        />
-
-        <ComponentPageAlgolia componentId="ROG MAXIMUS IX HERO" />
-
-        <div className="site-footer">
-          <p className="" style={{float: 'left'}}>
-            {/* <a href="https://gitlab.com/rigconfig/ccdb" target="ccdb">Add Components</a> */}
-            <Button
-              bsSize="small"
-              className="add-components-link"
-              bsStyle="link"
-              href="https://gitlab.com/rigconfig/ccdb#ccdb-computer-component-database"
-              target="ccdb"
-            >
-              <i className="fa fa-plus"></i>
-              <span>&nbsp;Add Components</span>
-            </Button>
-          </p>
-          <p style={{float: 'right'}}>
-            <a href="/privacy-policy.html" rel="nofollow" target="_privacy-policy">Privacy Policy</a>
-            <span className="divider">|</span>
-            <a href="/tos.html" rel="nofollow" target="_tos">TOS</a>
-          </p>
-        </div>
-
-        <UserSettingsModal UserSettingsModalOpen={UserSettingsModalOpen} />
-        {/* <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} /> */}
-        <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} />
-        <ComparisonModal />
-      </InstantSearch>
+          <UserSettingsModal UserSettingsModalOpen={UserSettingsModalOpen} />
+          {/* <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} /> */}
+          <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} />
+          <ComparisonModal />
+        </InstantSearch>
+      </div>
     );
   }
 }

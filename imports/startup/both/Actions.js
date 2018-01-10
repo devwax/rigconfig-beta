@@ -92,14 +92,18 @@ if (Meteor.isClient) {
       if (e) { e.preventDefault() }
 
       const currentRigId = AppState.get('currentRigId')
-      let sourceRig = GuestRigs.findOne(currentRigId)
-      if (!sourceRig.title) { sourceRig.title = 'No Title' }
+      let currentRig = GuestRigs.findOne(currentRigId)
 
-      sourceRig.title = `[Fork of: ${sourceRig.title}]`
-      sourceRig.public = false
-      sourceRig.lastSelected = new Date()
-      sourceRig.createdAt = new Date()
-      sourceRig.forkSourceId = sourceRig._id
+      const title = !currentRig.title ? 'No Title' : `[Fork of: ${currentRig.title}]`
+
+      const sourceRig = {
+        ...currentRig,
+        title,
+        public: false,
+        lastSelected: new Date(),
+        createdAt: new Date(),
+        forkSourceId: currentRig._id
+      }
 
       // Create new rig
       sourceRigId = sourceRig._id
@@ -108,14 +112,10 @@ if (Meteor.isClient) {
 
       // Copy over all components from sourceRig to new rig in GuestRigComponents
       const sourceRigComponents = GuestRigComponents.find({rigId: sourceRigId}).fetch()
-      // console.log('sourceRigComponents:', sourceRigComponents);
 
       sourceRigComponents.map((component) => {
         delete component._id
         component.rigId = newRigId
-        // console.log(component);
-        // console.log('sourceRigId:', sourceRigId);
-        // console.log('newRigId:', newRigId);
         GuestRigComponents.insert(component)
       })
 
@@ -125,24 +125,23 @@ if (Meteor.isClient) {
       return newRigId
     },
 
-    forkPublicRig(e, sourceRig) {
+    forkPublicRig(e, rig) {
       if (e) { e.preventDefault() }
 
-      if (!sourceRig.title) { sourceRig.title = 'No Title' }
+      const title = !rig.title ? 'No Title' : `[Fork of: ${rig.title}]`
 
-      // sourceRig.title = `[Fork of: ${sourceRig.title}]`
-      sourceRig.title = sourceRig.title
-      sourceRig.public = false
-      sourceRig.lastSelected = new Date()
-      sourceRig.createdAt = new Date()
-      sourceRig.forkSourceId = sourceRig._id
-
-      // console.log('sourceRig:', sourceRig);
+      const sourceRig = {
+        ...rig,
+        title,
+        public: false,
+        lastSelected: new Date(),
+        createdAt: new Date(),
+        forkSourceId: rig._id
+      }
 
       // Create new rig
       sourceRigId = sourceRig._id
       delete sourceRig._id
-
       const newRigId = GuestRigs.insert(sourceRig)
 
       // Insert all components from sourceRig to GuestUser's rig in GuestRigComponents
@@ -152,25 +151,6 @@ if (Meteor.isClient) {
         component.rigId = newRigId
         GuestRigComponents.insert(component)
       })
-
-      delete sourceRig.components
-
-/*
-      // Getting components from algolia index
-      // (* not used, until we have public rigs stored in algolia. For now they're only in mongo.)
-      // https://github.com/algolia/algoliasearch-client-javascript#get-objects---getobjects
-      // also need to initIndex in algolia-include.js: window.ag_index = window.client.initIndex('rigconfig_components');
-      window.ag_index.getObjects(['ypykC4NSmenN9FcAt', 'ypJR8AcJyFS7zYq52', 'xL5mcDPDkBWaFL333'], function(err, content) {
-        console.log(content.results);
-        content.results.map(function(c) {
-          if (c !== null) {
-            console.log(c)
-          } else {
-            console.log('was NULL...')
-          }
-        });
-      });
-*/
 
       Actions.selectRig(newRigId)
       AppState.set({RightDrawerOpen: true})

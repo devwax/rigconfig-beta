@@ -83,15 +83,12 @@ function ComponentPage({componentData, publicFields, notFound, loading}) {
   )
 }
 
-export default withTracker(({params}) => {
-  /** SSR
-    We're server-side rendering w/ react-router-ssr.
-  */
+export default withTracker(({match}) => {
   let Collection
   let componentDataHandle
   let componentData
   let notFound = false
-  let ComponentType = ComponentTypesList.filter(c => c.collectionName.toLowerCase() === params.type.toLowerCase())[0]
+  let ComponentType = ComponentTypesList.filter(c => c.collectionName.toLowerCase() === match.params.type.toLowerCase())[0]
   let publicFields = {}
 
   ComponentType && ComponentType.hasOwnProperty('collectionName')
@@ -100,7 +97,7 @@ export default withTracker(({params}) => {
 
   if ( !notFound && ComponentCollectionNames.indexOf(ComponentType) !== -1) {
     Collection = eval(ComponentType)
-    const componentId = params.id.split('-').pop() // e.g. /c/cpus/title-of-component-yqdJqLLhWM6TCzpyR
+    const componentId = match.params.id.split('-').pop() // e.g. /c/cpus/title-of-component-yqdJqLLhWM6TCzpyR
     componentDataHandle = Meteor.subscribe('singleComponent', ComponentType, componentId)
     componentData = Collection.findOne()
     publicFields = Collection.publicFields

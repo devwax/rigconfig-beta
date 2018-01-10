@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Button } from "react-bootstrap";
@@ -17,8 +18,11 @@ import InRigCount from "/imports/ui/both/components/Results/InRigCount.jsx";
 
 const Result = ({hit, inRig, inRigCount, matchedComponentId, cx, QuickViewModalOpen}) =>
   <li key={hit._id} className={cx}>
-    <h4 onClick={ e => {e.preventDefault(); AppState.set({QuickViewModalOpen: true, hit: hit});} }>
-      <Highlight attributeName="title" hit={hit} />
+    {/* <h4 onClick={ e => {e.preventDefault(); AppState.set({QuickViewModalOpen: true, hit: hit});} }> */}
+    <h4>
+      <Link to={'/c/' + hit.type + '/' + hit._id }>
+        <Highlight attributeName="title" hit={hit} />
+      </Link>
     </h4>
     <AddToRigButton component={hit} inRig={inRig} inRigCount={inRigCount} />
     { (inRig && inRigCount > 0) &&
@@ -37,7 +41,7 @@ const Result = ({hit, inRig, inRigCount, matchedComponentId, cx, QuickViewModalO
         AppState.set({QuickViewModalOpen: true, hit});
       }}><i className="fa fa-search"></i></Button>
     {/* <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={hit} /> */}
-    <CompareButton componentId={hit._id} />
+    <CompareButton component={hit} componentId={hit._id} />
     {/* <span className="compare-components">
       <div className="ais-RefinementList__item ais-RefinementList__itemSelected">
         <label>
