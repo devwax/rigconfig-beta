@@ -1,5 +1,5 @@
 import React from 'react';
-import { connectCurrentRefinements } from 'react-instantsearch-meteor/connectors';
+import { connectCurrentRefinements } from 'react-instantsearch/connectors';
 import AppState from '/imports/startup/both/AppState.js';
 
 function CurrentRefinementsModule({items, searchState}) {

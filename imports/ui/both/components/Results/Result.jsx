@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Button } from "react-bootstrap";
 import {
   Highlight
-} from 'react-instantsearch-meteor/dom';
+} from 'react-instantsearch/dom';
 import AppState from '/imports/startup/both/AppState.js';
 import Actions from '/imports/startup/both/Actions.js';
 import { GuestRigComponents } from '/imports/api/rig_components/guest_rig_components.js';

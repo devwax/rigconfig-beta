@@ -6,7 +6,7 @@ import Actions from '/imports/startup/both/Actions.js';
 import { GuestRigs } from '/imports/api/rigs/guest_rigs.js';
 import { GuestRigComponents } from '/imports/api/rig_components/guest_rig_components.js';
 // import SearchBox from '/imports/ui/both/components/Results/SearchBox.jsx'
-import { SearchBox } from 'react-instantsearch-meteor/dom';
+import { SearchBox } from 'react-instantsearch/dom';
 import GitlabLogoSvg from '/imports/ui/both/components/GitlabLogoSvg.jsx';
 // import ComparisonIcon from '/imports/ui/both/components/ComparisonIcon.jsx';
 

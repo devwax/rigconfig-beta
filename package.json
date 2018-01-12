@@ -5,6 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.37",
     "babel-runtime": "^6.18.0",
     "bricks.js": "^1.7.0",
     "classnames": "^2.2.5",
@@ -19,7 +20,7 @@
     "react-custom-scrollbars": "^4.0.1",
     "react-dom": "^16.1.1",
     "react-helmet": "^5.2.0",
-    "react-instantsearch-meteor": "^4.2.1",
+    "react-instantsearch": "^4.4.1",
     "react-instantsearch-theme-algolia": "^4.2.0",
     "react-masonry-infinite": "^1.1.0",
     "react-mixin": "^4.0.0",

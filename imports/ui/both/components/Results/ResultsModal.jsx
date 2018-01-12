@@ -2,13 +2,13 @@ import React from 'react';
 import {
   Button
 } from "react-bootstrap";
-import { connectStateResults } from 'react-instantsearch-meteor/connectors';
-import { connectCurrentRefinements } from 'react-instantsearch-meteor/connectors';
+import { connectStateResults } from 'react-instantsearch/connectors';
+import { connectCurrentRefinements } from 'react-instantsearch/connectors';
 import {
   Hits,
   Pagination,
   ClearAll
-} from 'react-instantsearch-meteor/dom';
+} from 'react-instantsearch/dom';
 // import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';

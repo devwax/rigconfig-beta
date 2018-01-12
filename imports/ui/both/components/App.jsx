@@ -14,7 +14,7 @@ import {
   ClearAll,
   Panel,
   MenuSelect
-} from 'react-instantsearch-meteor/dom';
+} from 'react-instantsearch/dom';
 import '/node_modules/react-instantsearch-theme-algolia/style.css';
 import CurrentRefinementsModule from '/imports/ui/both/components/Results/CurrentRefinementsModule.jsx';
 

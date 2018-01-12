@@ -4,7 +4,7 @@ import {
   ClearAll,
   Panel,
   MenuSelect
-} from 'react-instantsearch-meteor/dom';
+} from 'react-instantsearch/dom';
 import '/node_modules/react-instantsearch-theme-algolia/style.css';
 import orderBy from 'lodash.orderby';
 import { Scrollbars } from 'react-custom-scrollbars';
