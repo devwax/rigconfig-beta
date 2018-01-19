@@ -20,129 +20,71 @@ import AddToRigButton from "/imports/ui/both/components/Results/AddToRigButton.j
 import RemoveFromRigButton from "/imports/ui/both/components/Results/RemoveFromRigButton.jsx";
 import InRigCount from "/imports/ui/both/components/Results/InRigCount.jsx";
 
-class QuickViewModal extends React.Component {
-  constructor(...args) {
-    super(...args);
-    // this.state = {
-    // }
-  }
+const QuickViewModal = ({hit, inRig, inRigCount, matchedComponentId, QuickViewModalOpen}) => {
+  if (!hit) return null;
+  return (
+    <Modal className="QuickViewModal" show={QuickViewModalOpen} onHide={Actions.closeAllModals} animation={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          {/* <i className="fa fa-cog" aria-hidden="true"></i> */}
+          <span>{hit.title}</span>
+        </Modal.Title>
+      </Modal.Header>
 
-  render() {
-    // const { props } = this
-    if (!this.props.hit) {
-      return null;
-    }
+      <Modal.Body>
+        <div className="component-links">
+          <AddToRigButton component={hit} inRig={inRig} inRigCount={inRigCount} />
 
-/*
-    let hitData = []
-    // let testData = [1,2,3,4,5]
+          { (inRig && inRigCount > 0) &&
+            <span>
+              <RemoveFromRigButton componentId={matchedComponentId} />
+              <InRigCount count={inRigCount} />
+            </span>
+          }
 
-    // console.log('before');
-    for (var field in this.props.hit) {
-      // if (props.hit.hasOwnProperty(field)) {
-        hitData[field] = this.props.hit[field]
-        // console.log('field, hitData[field], props.hit[field]', field, hitData[field], props.hit[field]);
-        hitData.map(c => console.log('c:', c))
-        // console.log('during');
-        // hitData.map(function (c) {
-        //   return console.log('c:', hitData)
-        // })
-      // }
-    }
-    // console.log('after', hitData.length);
-    // console.log('hitData', hitData);
-    // console.log('typeof hitData', typeof hitData);
-
-    // hitData.map((v, i) => {
-    //   console.log('TESTTTTTT!');
-    // })
-
-    // testData.map((v, i) => {
-    //   console.log(v, i);
-    //
-    // })
-*/
-    const { hit, inRig, inRigCount, matchedComponentId } = this.props
-    // console.log('QuikView: hit', hit);
-    return (
-      <Modal className="QuickViewModal" show={this.props.QuickViewModalOpen} onHide={Actions.closeAllModals} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {/* <i className="fa fa-cog" aria-hidden="true"></i> */}
-            <span>{hit.title}</span>
-          </Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <div className="component-links">
-            {/* <Button
-              className="add-to-rig-button"
-              bsStyle="default"
-              bsSize="small"
-              onClick={e => Actions.addToRig(hit) }>
-                <i className="fa fa-plus" style={{marginRight: 5}}></i>
-                <span>Add to Rig</span>
-            </Button> */}
-
-            <AddToRigButton component={hit} inRig={inRig} inRigCount={inRigCount} />
-            { (inRig && inRigCount > 0) &&
-              <span>
-                <RemoveFromRigButton componentId={matchedComponentId} />
-                {/* <Button className="minus" style={{marginLeft: 5}} bsSize="xsmall" onClick={ e => {e.preventDefault(); Actions.deleteFromRig(matchedComponentId);} }><i className="fa fa-minus"></i></Button> */}
-                {/* <span className="count">{'(x'+inRigCount+')'}</span> */}
-                <InRigCount count={inRigCount} />
-              </span>
-            }
-
-            {hit.newegg_id &&
-              <Button
-                className="newegg-button"
-                bsStyle="link"
-                bsSize="small"
-                href={`https://www.newegg.com/Product/Product.aspx?Item=${hit.newegg_id}`}
-                target={hit.newegg_id}>
-                  <i className="fa fa-lemon-o" style={{marginRight: 5}}></i>
-                  <span>Newegg</span>
-            </Button>}
-            {hit.asin &&
-              <Button
-                className="amazon-button"
-                bsStyle="link"
-                bsSize="small"
-                href={`https://www.amazon.com/dp/${hit.asin}`}
-                target={hit.asin}>
-                  <i className="fa fa-amazon" style={{marginRight: 5}}></i>
-                  <span>Amazon</span>
-            </Button>}
-            {/* &nbsp; <a href={`https://www.newegg.com/Product/Product.aspx?Item=${hit.newegg_id}`}>Newegg</a> | <a href={`https://www.amazon.com/dp/${hit.asin}`}>Amazon</a> */}
+          { hit.newegg_id &&
             <Button
-              bsSize="small"
-              className="button-link-style pull-right"
+              className="newegg-button"
               bsStyle="link"
-              href={`https://gitlab.com/rigconfig/ccdb/edit/master/src/json/${hit.type}/${hit.part_number}.json`}
-              target={`_${hit.part_number}`}>
-                <i className="fa fa-pencil"></i>
-                <span>Edit</span>
-            </Button>
-          </div>
+              bsSize="small"
+              href={`https://www.newegg.com/Product/Product.aspx?Item=${hit.newegg_id}`}
+              target={hit.newegg_id}>
+                <i className="fa fa-lemon-o" style={{marginRight: 5}}></i>
+                <span>Newegg</span>
+            </Button>}
+          { hit.asin &&
+            <Button
+              className="amazon-button"
+              bsStyle="link"
+              bsSize="small"
+              href={`https://www.amazon.com/dp/${hit.asin}`}
+              target={hit.asin}>
+                <i className="fa fa-amazon" style={{marginRight: 5}}></i>
+                <span>Amazon</span>
+            </Button>}
 
-          <Table striped bordered condensed hover className="ComponentDetails">
-            <tbody>
-              <ComponentDataList data={hit} />
-            </tbody>
-          </Table>
+          <Button
+            bsSize="small"
+            className="button-link-style pull-right"
+            bsStyle="link"
+            href={`https://gitlab.com/rigconfig/ccdb/edit/master/src/json/${hit.type}/${hit.part_number}.json`}
+            target={`_${hit.part_number}`}>
+              <i className="fa fa-pencil"></i>
+              <span>Edit</span>
+          </Button>
+        </div>
 
-        </Modal.Body>
-      </Modal>
-    )
-  }
+        <Table striped bordered condensed hover className="ComponentDetails">
+          <tbody>
+            <ComponentDataList data={hit} />
+          </tbody>
+        </Table>
+
+      </Modal.Body>
+    </Modal>
+  )
 }
 
-// export default withTracker(() => {
-//   return {
-//     GuestUserData: Meteor.isClient ? GuestUser.findOne() : {}
-//   }
-// })(QuickViewModal)
 
 const ComponentDataList = ({data}) => {
   let fields = [];
@@ -165,15 +107,11 @@ const ComponentDataList = ({data}) => {
     "_highlightResult"
   ]
 
-  // const
-  // 1. clone data variable
-  // 2. and then use that in propertySuppressionList and for..in loop below
-  // propertySuppressionList.map(prop => delete data[prop])
   const filtered_data = {...data}
   propertySuppressionList.map(prop => delete filtered_data[prop])
 
   for (var field in filtered_data) {
-    // 1. Remove properties in supperssion list
+    // 1. Remove properties in suppression list
     // 2. Transform propery values (Array to comma delimited, etc)
 
     if (filtered_data.hasOwnProperty(field)) {
@@ -192,11 +130,8 @@ const ComponentDataList = ({data}) => {
       if (field === 'sources') {
         const sources_obj = filtered_data['sources']
         for (var source in sources_obj) {
-          // const value = () => {return (<a href={${sources_obj[source]}} dangerouslySetInnerHTML={${sources_obj[source]}></a>)}
-          // const value = <a href={sources_obj[source]} dangerouslySetInnerHTML={{__html: sources_obj[source]}} target="_source"></a>
           const value = <a href={sources_obj[source]} dangerouslySetInnerHTML={{__html: sources_obj[source]}} target="_source"></a>
           sources.push({name: source, value: value})
-          // sources.push({name: source, value: sources_obj[source]})
         }
       }
     }
@@ -208,7 +143,6 @@ const ComponentDataList = ({data}) => {
   return fields
 }
 
-// export default QuickViewModal
 export default withTracker(() => {
   const hit = AppState.get('hit');
   const components = GuestRigComponents.find({rigId: AppState.get('currentRigId')}, {sort: {position: 1}}).fetch() || [];
@@ -216,7 +150,7 @@ export default withTracker(() => {
   let inRig = false;
   let inRigCount = 0;
   let matchedComponentId = '';
-  // console.log('hit', hit);
+
   hit && components.map(c => {
     if (c.componentId === hit._id) {
       inRigCount++;
@@ -225,17 +159,12 @@ export default withTracker(() => {
     }
   });
 
-  // console.log('components', components);
-  // console.log('inRig', inRig);
-  // console.log('inRigCount', inRigCount);
-  // console.log('matchedComponentId', matchedComponentId);
-  // console.log('hit', hit);
   return {
-    // hit: AppState.get('hit'),
     hit,
     components,
     inRig,
     inRigCount,
-    matchedComponentId
+    matchedComponentId,
+    QuickViewModalOpen: AppState.get('QuickViewModalOpen')
   }
 })(QuickViewModal)

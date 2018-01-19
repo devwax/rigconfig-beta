@@ -302,7 +302,20 @@ if (Meteor.isClient) {
       window.helper.setQueryParameter('hitsPerPage', AppConfig.paginationDefault).search();
       $('#Navbar-search-term').val('')
       AppState.set({algoliaActive: false})
+    },
+
+    addToComparison(component, componentComparisonList = []) {
+      componentComparisonList = AppState.get('componentComparisonList');
+      componentComparisonList.push(component);
+      AppState.set({componentComparisonList});
+    },
+
+    removeFromComparison(componentId, componentComparisonList = []) {
+      componentComparisonList = AppState.get('componentComparisonList');
+      componentComparisonList = componentComparisonList.filter(c => c._id !== componentId);
+      AppState.set({componentComparisonList});
     }
+
   }
 } else {
   Actions = {}

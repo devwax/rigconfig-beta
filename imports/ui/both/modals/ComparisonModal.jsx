@@ -9,6 +9,7 @@ import {
   ListGroupItem,
   // Table
 } from "react-bootstrap";
+import ReactDataGrid from 'react-data-grid/dist/react-data-grid.min.js'; // https://github.com/adazzle/react-data-grid/issues/625#issuecomment-321362494
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import AppState from '/imports/startup/both/AppState.js';
@@ -19,12 +20,66 @@ import Actions from '/imports/startup/both/Actions.js';
 class ComparisonModal extends React.Component {
   constructor(...args) {
     super(...args);
-    // console.log('ComparisonModal > constructor fired');
+
+    this._columns = []
+    this.createRows();
+    this.createColumns();
+
+    // this._columns = [
+    //   { key: 'id', name: 'ID' },
+    //   { key: 'title', name: 'Title' },
+    //   { key: 'count', name: 'Count' } ];
+
+    // this.props.componentComparisonList.map(c => {
+    //   this._columns.push({ key: 'title', name: 'Title' })
+    // })
+
+    // this.state = null;
   }
 
-  // componentWillUpdate() {
-  //   console.log('ComparisonModal > updated');
-  // }
+  /*
+    - need to create first column w/ property names
+    - lock first column
+    - rest of columns have corresponding property values
+    - horizontal scroll for more than 4 or 5
+    - close / remove w/ X next to title or 'delete' button under it
+
+
+  */
+
+  createColumns = () => {
+    this._columns = []
+    // this.props.componentComparisonList.map(c => {
+    //   this._columns.push({ key: 'title', name: 'Title', width: 200 })
+    // })
+    this._columns.push({ key: 'property_name', name: 'Property Name', width: 200 })
+    this.props.componentComparisonList.map(c => {
+      this._columns.push({ key: 'title', name: c.title, width: 200 })
+    })
+    console.log('this.props.componentComparisonList', this.props.componentComparisonList);
+  }
+
+  createRows = () => {
+    let rows = [];
+    rows.push({ properties: 'Properties' })
+    this.props.componentComparisonList.map(c => {
+      rows.push({ title: c.title + 'lksajd aslkdj aslkdj aslkdsl sadlkj asdllsakjdlkasdj alsdkj lsdkj' })
+    })
+
+    this._rows = rows;
+  }
+
+  rowGetter = (i) => {
+    return this._rows[i];
+  }
+
+  componentWillUpdate() {
+    this.createRows();
+    this.createColumns();
+    // this.props.componentComparisonList.map(c => {
+    //   this._columns.push({ key: 'title', name: 'Title' })
+    // })
+  }
 
   render() {
     return (
@@ -52,6 +107,16 @@ class ComparisonModal extends React.Component {
               {/* { sources && sources.map((field, id) => <tr key={id}><td className="label">{formatTitle(field.name)}</td><td>{field.value}</td></tr>) } */}
             {/* </tbody> */}
           {/* </Table> */}
+          {/* <ReactDataGrid /> */}
+
+          { (this.props.componentComparisonList.length > 0) &&
+            <ReactDataGrid
+              columns={this._columns}
+              rowGetter={this.rowGetter}
+              rowsCount={this._rows.length}
+              minHeight={500} />
+          }
+
           <ul>
             { this.props.componentComparisonList.map(c => <li key={c._id}>{c.title}</li>) }
           </ul>

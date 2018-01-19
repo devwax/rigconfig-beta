@@ -229,9 +229,11 @@ class App extends React.PureComponent {
           </div>
 
           <UserSettingsModal UserSettingsModalOpen={UserSettingsModalOpen} />
-          {/* <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} /> */}
+
           <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} />
+
           <ComparisonModal />
+
         </InstantSearch>
       </div>
     );

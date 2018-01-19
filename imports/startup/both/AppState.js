@@ -18,7 +18,6 @@ AppState.set({
   QuickViewModalOpen: false,
   ComparisonModalOpen: false,
   hit: {},
-  // compareState: false,
   componentComparisonList: [],
   alertVisible: false,
   alertMessage: '',

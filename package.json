@@ -18,6 +18,7 @@
     "react-addons-pure-render-mixin": "^15.3.2",
     "react-bootstrap": "^0.31.5",
     "react-custom-scrollbars": "^4.0.1",
+    "react-data-grid": "^3.0.3",
     "react-dom": "^16.1.1",
     "react-helmet": "^5.2.0",
     "react-instantsearch": "^4.4.1",
