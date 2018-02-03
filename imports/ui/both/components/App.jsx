@@ -61,7 +61,6 @@ class App extends React.PureComponent {
     this.state = { searchState: this.urlToSearchState(props.location) };
   }
 
-  // This works, but why doesn't it work in constructor? ... isSearching not set? -- @todo (isSearching)
   componentWillMount() {
     this.normalizeState(this.urlToSearchState(this.props.location));
     this.setState({ searchState: this.urlToSearchState(this.props.location) });
@@ -232,7 +231,7 @@ class App extends React.PureComponent {
 
           <QuickViewModal QuickViewModalOpen={QuickViewModalOpen} hit={AppState.get('hit')} />
 
-          <ComparisonModal />
+          <ComparisonModal handleClearSearchState={this.handleClearSearchState} history={this.props.history}/>
 
         </InstantSearch>
       </div>
@@ -247,7 +246,7 @@ App.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export default withRouter(withTracker(({location}) => {
+export default withRouter(withTracker(({location, history}) => {
   const defaultTitle = AppConfig.site.title + ' - ' + AppConfig.site.tagline
   const pageTitle = AppConfig.site.title + ' - ' + AppConfig.site.tagline
   const canonicalURL = AppConfig.site.rootUri + location.pathname
