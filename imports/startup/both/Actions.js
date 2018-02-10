@@ -209,7 +209,7 @@ if (Meteor.isClient) {
           }
         }
       }
-
+      console.log('component', component);
       GuestRigComponents.insert({
         rigId,
         componentId,
@@ -312,7 +312,10 @@ if (Meteor.isClient) {
 
     removeFromComparison(componentId, componentComparisonList = []) {
       componentComparisonList = AppState.get('componentComparisonList');
+      // console.log('componentComparisonList', componentComparisonList);
+      // console.log('componentId', componentId);
       componentComparisonList = componentComparisonList.filter(c => c._id !== componentId);
+      // console.log('componentComparisonList filtered', componentComparisonList);
       AppState.set({componentComparisonList});
     }
 

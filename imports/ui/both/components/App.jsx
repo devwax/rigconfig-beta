@@ -50,7 +50,6 @@ import valuesIn from 'lodash.valuesin';
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-    // console.log('props', props);
     this.handleClearSearchState = this.handleClearSearchState.bind(this);
     this.onSearchStateChange = this.onSearchStateChange.bind(this);
     this.normalizeState = this.normalizeState.bind(this);
@@ -67,7 +66,6 @@ class App extends React.PureComponent {
   }
 
   componentWillReceiveProps(props) {
-    // console.log('app-props:', props);
     if (props.location.key !== this.props.location.key) {
       this.normalizeState(this.urlToSearchState(props.location));
       this.setState({ searchState: this.urlToSearchState(props.location) });
@@ -75,10 +73,7 @@ class App extends React.PureComponent {
   }
 
   onSearchStateChange(searchState) {
-    // this.getSearchUrl();
     this.normalizeState(searchState);
-
-    // Uncomment this to get search facet url updating in browser location bar
 
     clearTimeout(this.debouncedSetState);
     this.debouncedSetState = setTimeout(() => {
@@ -93,7 +88,6 @@ class App extends React.PureComponent {
 
   handleClearSearchState() {
     this.setState({ searchState: {} });
-    // then update the url, see onSearchStateChange above
     this.props.history.push(
       this.searchStateToUrl(this.props, {}),
       {}
@@ -101,8 +95,6 @@ class App extends React.PureComponent {
   }
 
   normalizeState(state = {}, hasValue = false) {
-    // console.log('state', state);
-
     // state.refinementList
     if (state.hasOwnProperty('refinementList')) {
       hasValue = false;
@@ -254,9 +246,8 @@ export default withRouter(withTracker(({location, history}) => {
   const RightDrawerOpen = AppState.get('RightDrawerOpen')
   const UserSettingsModalOpen = AppState.get('UserSettingsModalOpen')
   const QuickViewModalOpen = AppState.get('QuickViewModalOpen')
-  // const ComparisonModalOpen = AppState.get('ComparisonModalOpen')
   const drawerStates = classnames({LeftDrawerOpen, RightDrawerOpen})
-  // console.log('location-App', location);
+
   return {
     defaultTitle,
     pageTitle,
@@ -265,7 +256,6 @@ export default withRouter(withTracker(({location, history}) => {
     LeftDrawerOpen,
     UserSettingsModalOpen,
     QuickViewModalOpen,
-    // ComparisonModalOpen,
     drawerStates
   }
 })(App));
