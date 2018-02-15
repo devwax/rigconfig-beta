@@ -115,7 +115,7 @@ export default class ResultsForRigs extends React.Component {
               <ul className="components">
                 {/* {rig.hasOwnProperty("components") && rig.components.map( (c, i) => (c.title && c.hasOwnProperty("type")) && <li onClick={(e) => {this.context.router.push(componentLink(c.componentId, c.type, c.title))}} key={i}>{c.title}</li> )} */}
                 { rig.hasOwnProperty("components") &&
-                  rig.components.map(
+                  rig.components.sort((a, b) => (a.position - b.position)).map(
                     (c, i) => {
                       if (c.title && c.hasOwnProperty("type")) {
                         return (<li key={i}><Link to={componentLink(c.componentId, c.type, c.title)}>{c.title}</Link></li>)
