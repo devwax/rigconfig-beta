@@ -21,7 +21,7 @@ AppState.set({
   componentComparisonList: [],
   alertVisible: false,
   alertMessage: '',
-  LeftDrawerOpen: false,
+  LeftDrawerOpen: true,
   // RightDrawerOpen: Meteor.isDevelopment ? true : false,
   RightDrawerOpen: false,
   rigSelectorOpen: false,
