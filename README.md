@@ -3,7 +3,7 @@
   - [Dev Board](https://gitlab.com/rigconfig/rigconfig/boards) - Current development, what's being worked on, etc.
   - [Docs](./.docs/index.md)
   - [Twitter](https://twitter.com/rigconfig)
-  - Email: [contact@rigconfig.com](mailto:contact@rigconfig.com)
+  - Email: [smonsen@devwax.com](mailto:smonsen@devwax.com)
   - [CCDB](https://gitlab.com/rigconfig/ccdb) - *Open Source Computer Component Database* repository developed in conjunction w/ RigConfig.
 
 # Table of Contents
